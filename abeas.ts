@@ -17,19 +17,20 @@ function calculateNext(remainingEntries: string[][], entry: string[], starting:n
 }
 */
 
-function calculateMoney(valueFirst: string[], eligibleEntriesNow: string[][]): number[]{
+function calculateMoney(valueFirst: string[], eligibleEntriesNow: string[][]): number{
     console.log(eligibleEntriesNow)
-    return eligibleEntriesNow.map(function(value: string[]){
+    const earnings = eligibleEntriesNow.map(function(value: string[]){
         const eligibleEntries = entries.slice(entries.indexOf(value)+1).filter(entry => +entry[1] > (+value[1] + +value[2]));
         const totalMoney = (typeof eligibleEntries !== 'undefined' && eligibleEntries.length > 0) ? calculateMoney(value, eligibleEntries) : 0
         //console.log("first return" + totalMoney);
         
         const a = totalMoney == 0 ? +valueFirst[3] + +eligibleEntriesNow.sort(function(a: string[],b: string[]) { return +a[3] - +b[3]} )[0][3] : 0
-        //console.log(a);
+        console.log(a);
         return a
         //console.log(eligibleEntriesNow.sort(function(a: string[],b: string[]) { return +a[3] - +b[3]} )[0][3]);
     });
-    //return a;
+    //console.log(earnings.sort()[0]);
+    return earnings.sort()[0];
 }
 
 const entries = fs.readFileSync('testCases.txt','utf8').split("\n").map(function(row){return row.split(" ");});
