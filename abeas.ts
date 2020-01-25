@@ -1,40 +1,46 @@
 //ABEAS flights problem
 
 import * as fs from 'fs';
-
 /*
-function calculateMoney(starting: number, entries: string[][]){
-    entries.map(function(entry) {
-        return calculateNext(entries.slice(entries.indexOf(entry)+1), entry, starting);
-    });
-}
-
-function calculateNext(remainingEntries: string[][], entry: string[], starting:number){
-    remainingEntries.map(function(remainingEntry){
-        let a = (+remainingEntries[1] > (+entry[1] + +entry[2])) && ((+remainingEntries[3] + +entry[3]) > starting) ? +remainingEntries[3] + +entry[3] : 0;
-        console.log(a);
-    })
-}
-*/
-
 function calculateMoney(valueFirst: string[], eligibleEntriesNow: string[][]): number{
     console.log(eligibleEntriesNow)
     const earnings = eligibleEntriesNow.map(function(value: string[]){
         const eligibleEntries = entries.slice(entries.indexOf(value)+1).filter(entry => +entry[1] > (+value[1] + +value[2]));
         const totalMoney = (typeof eligibleEntries !== 'undefined' && eligibleEntries.length > 0) ? calculateMoney(value, eligibleEntries) : 0
-        //console.log("first return" + totalMoney);
         
-        const a = totalMoney == 0 ? +valueFirst[3] + +eligibleEntriesNow.sort(function(a: string[],b: string[]) { return +a[3] - +b[3]} )[0][3] : 0
-        console.log(a);
-        return a
-        //console.log(eligibleEntriesNow.sort(function(a: string[],b: string[]) { return +a[3] - +b[3]} )[0][3]);
+        //this line is garbage
+        const a: number = +valueFirst[3] + +eligibleEntriesNow.sort(function(a: string[],b: string[]) { return +a[3] - +b[3]} )[0][3] + totalMoney
+        console.log("line 13 "+a);
+        console.log(eligibleEntriesNow.sort(function(a: string[],b: string[]) { return +a[3] - +b[3]} ));
+        return totalMoney == 0 ? 0 : a
     });
-    //console.log(earnings.sort()[0]);
-    return earnings.sort()[0];
+    console.log("line 17 " + earnings.sort()[0]);
+    return 5;//earnings.sort()[0];
+}
+*/
+function getEarnings(entries: string[][]): number{
+    
+    const earnings = entries.map(function(entry: string[]){
+        const eligibleEntries = entries.slice(1).filter(entry => +entry[1] > (+entries[0][1] + +entries[0][2]));
+        console.log(eligibleEntries);
+        const totalMoney = (typeof eligibleEntries !== 'undefined' && eligibleEntries.length > 0) ? getEarnings(eligibleEntries) : +entries[0][3]
+        
+        console.log(totalMoney);
+        return totalMoney == +entries[0][3] ? +entries[0][3] : +entries[0][3] + totalMoney;
+    });
+    console.log(earnings);
+    return earnings[0];
 }
 
 const entries = fs.readFileSync('testCases.txt','utf8').split("\n").map(function(row){return row.split(" ");});
-
+/*
+const a = entries.map(function(value: string[]){
+    return value[1];
+});
+*/
+const a = getEarnings(entries);
+console.log(a);
+/*
 const revenue = entries.map(function(value){
     const eligibleEntries = entries.slice(entries.indexOf(value)+1).filter(entry => +entry[1] > (+value[1] + +value[2]));
     const totalMoney = (typeof eligibleEntries !== 'undefined' && eligibleEntries.length > 0) ? calculateMoney(value, eligibleEntries) : 0
@@ -42,13 +48,4 @@ const revenue = entries.map(function(value){
 });
 
 console.log(revenue)
-//console.log(Math.max.apply(null, revenue))
-//const a = entries.filter(entry => +entry[1] > 5);
-//console.log(eligibleEntries);
-
-//const totalMoney = calculateMoney(0, entries);
-
-//console.log(totalMoney);
-
-//totalMoney == 0 ? console.log(Math.max.apply(null, entries.map(function(value) { return +value[3]; }))): console.log(totalMoney)
-
+*/
