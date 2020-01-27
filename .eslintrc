@@ -57,5 +57,9 @@
     "functional/no-try-statement": 2,
     "functional/functional-parameters": 2
   },
-  "extends": ["plugin:@typescript-eslint/recommended"]
+  "extends": ["plugin:@typescript-eslint/recommended"],
+  "scripts": {
+    "test": "mocha -r ts-node/register *.test.ts",
+    "coverage": "nyc -r lcov -e .ts -x \"*.test.ts\" npm run test"
+}
 }
