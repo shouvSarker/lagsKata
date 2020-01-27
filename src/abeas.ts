@@ -27,7 +27,7 @@ function throwError(message: string): void {
     throw new Error(message); 
 }
 
-/* finds the entries whose start time is greater than head's start time and duration combines (i.e. can be run after head) */
+/* finds the entries whose start time is greater than head's start time and duration combined (i.e. can be run after head) */
 function findEntries(passedEntries: requests[], value: requests): requests[]{
     return passedEntries.slice(passedEntries.indexOf(value)).filter(entry => entry.start > (value.start + +value.duration));
 }
@@ -70,7 +70,6 @@ function getEarnings(entries: requests[]): combinations{
         /* returns the list of customers and combined earning for sequence */
         return findComb(sequence, value.earning);
     });
-    console.log(earnings);
     /* returns the highest earning for the current list of combinations */
     return getHighest(earnings);
 }
@@ -78,11 +77,10 @@ function getEarnings(entries: requests[]): combinations{
 /* converts numeric strings into numbers and checks for validity (4 columns with column 2-4 numeric) */
 export function cleanData(entries: string[][]): requests[]{
     return entries.map(function(value: string[]){
-        value.length == 4 ? console.log("There are four columns") : throwError("Expected four columns, got "+value.length+ " at row "+entries.indexOf(value));
+        if (value.length !== 4) throwError("Expected four columns, got "+value.length+ " at row "+entries.indexOf(value));
         const cleanedValue = value.slice(1).map(function(member: string){
             const dirtyData = isNaN(+member) ? true : false;
-            console.log(dirtyData);
-            dirtyData ? throwError(member+" is not a number at row: "+entries.indexOf(value)+" column: "+value.indexOf(member)) : console.log("safe this time");
+            if (dirtyData) throwError(member+" is not a number at row: "+entries.indexOf(value)+" column: "+value.indexOf(member));
             return +member;
         })
         return generateRequests(value[0], cleanedValue[0], cleanedValue[1], cleanedValue[2]);
@@ -94,5 +92,3 @@ export function acceptedRequests(givenEntries: string[][]): combinations{
     const chosenSequence = getEarnings(cleanData(givenEntries));
     return generateCombinations(chosenSequence.names.slice().reverse(), chosenSequence.totalEarning);
 }
-
-//export {}
