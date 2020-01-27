@@ -19,6 +19,17 @@ describe('abeas', function() {
     expect(result).to.eql(request);
   });
 
+  it('CombinationGeneration', function() {
+    const result: abeasFile.combinations = abeasFile.generateCombinations(['AF514', 'BF524'], 10);
+    const combination: abeasFile.combinations = 
+    {
+      names: ['AF514', 'BF524'],
+      totalEarning: 10
+    };
+    
+    expect(result).to.eql(combination);
+  });
+  
   it('DataCleaning', function() {
     const result = abeasFile.cleanData([['AF514', '0', '5', '10'], ['Ak514', '4','3', '4']]);
     const cleaned: abeasFile.requests[] = [
