@@ -99,7 +99,7 @@
     "eslint-plugin-functional": "^1.0.3",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "type-coverage": "^2.3.1",
-    "typedoc": "https://github.com/DatenMetzgerX/typedoc/tarball/typescript-2-build"
+    "typedoc": "^0.16.9"
   },
   "author": "Shouv",
   "license": "ISC"

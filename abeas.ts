@@ -50,8 +50,32 @@ function getEarnings(entries: string[][]): [string[], number]{
     return getHighest(earnings);
 }
 
+function cleanData(entries: string[][]): [string, number, number, number][]{
+    return entries.map(function(value: string[]){
+        value.length == 4 ? console.log("There are four columns") : throwError("Expected four columns, got "+value.length+ " at row "+entries.indexOf(value));
+        const cleanedValue = value.slice(1).map(function(member: string){
+            const dirtyData = isNaN(+member) ? true : false;
+            console.log(dirtyData);
+            dirtyData ? throwError(member+" is not a number at row: "+entries.indexOf(value)+" column: "+value.indexOf(member)) : console.log("safe this time");
+            return +member;
+        })
+        return [value[0], cleanedValue[0], cleanedValue[1], cleanedValue[2]];
+    })
+}
+
+function throwError(message: string): void {
+    throw new Error(message);
+    
+}
+
 const entries = fs.readFileSync('testCases.txt','utf8').split("\n").map(function(row){return row.split(" ");});
 
+
+
+
+console.log(cleanData(entries));
+/*
 const a = getEarnings(entries);
 console.log(a[0].slice().reverse());
 console.log(a);
+*/
