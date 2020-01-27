@@ -77,10 +77,10 @@ function getEarnings(entries: requests[]): combinations{
 /* converts numeric strings into numbers and checks for validity (4 columns with column 2-4 numeric) */
 export function cleanData(entries: string[][]): requests[]{
     return entries.map(function(value: string[]){
-        if (value.length !== 4) throwError("Expected four columns, got "+value.length+ " at row "+entries.indexOf(value));
+        value.length !== 4 && throwError("Expected four columns, got "+value.length+ " at row "+entries.indexOf(value));
         const cleanedValue = value.slice(1).map(function(member: string){
             const dirtyData = isNaN(+member) ? true : false;
-            if (dirtyData) throwError(member+" is not a number at row: "+entries.indexOf(value)+" column: "+value.indexOf(member));
+            dirtyData && throwError(member+" is not a number at row: "+entries.indexOf(value)+" column: "+value.indexOf(member));
             return +member;
         })
         return generateRequests(value[0], cleanedValue[0], cleanedValue[1], cleanedValue[2]);
