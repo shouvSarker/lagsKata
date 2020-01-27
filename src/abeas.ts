@@ -28,12 +28,12 @@ function throwError(message: string): void {
 }
 
 /* finds the entries whose start time is greater than head's start time and duration combined (i.e. can be run after head) */
-function findEntries(passedEntries: requests[], value: requests): requests[]{
+export function findEntries(passedEntries: requests[], value: requests): requests[]{
     return passedEntries.slice(passedEntries.indexOf(value)).filter(entry => entry.start > (value.start + +value.duration));
 }
 
 /* checks if the passed array is empty */
-function checkEntries(passedEntries: requests[]): boolean{
+export function checkEntries(passedEntries: requests[]): boolean{
     return (typeof passedEntries !== 'undefined' && passedEntries.length > 0) ? true : false;
 }
 

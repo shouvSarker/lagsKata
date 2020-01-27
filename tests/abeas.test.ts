@@ -29,7 +29,26 @@ describe('abeas', function() {
     
     expect(result).to.eql(combination);
   });
-  
+
+  it('entryDiscovery', function() {
+    const value: abeasFile.requests = abeasFile.generateRequests('AF514', 4, 5, 10);
+    const entryList: abeasFile.requests[] = [abeasFile.generateRequests('AF514', 0, 5, 10), abeasFile.generateRequests('AB514', 4, 5, 10), abeasFile.generateRequests('AC514', 10, 5, 10)];
+    const expected: abeasFile.requests[] = [abeasFile.generateRequests('AC514', 10, 5, 10)];
+    const result: abeasFile.requests[] = abeasFile.findEntries(entryList, value);
+    
+    expect(result).to.eql(expected);
+  });
+
+  it('entryChecking', function() {
+    const emptyList: abeasFile.requests[] = [];
+    const entryList: abeasFile.requests[] = [abeasFile.generateRequests('AF514', 0, 5, 10), abeasFile.generateRequests('AB514', 4, 5, 10), abeasFile.generateRequests('AC514', 10, 5, 10)];
+    const resultEmpty: boolean = abeasFile.checkEntries(emptyList);
+    const resultList: boolean = abeasFile.checkEntries(entryList);
+    
+    expect(resultEmpty).equal(false);
+    expect(resultList).equal(true);
+  });
+
   it('DataCleaning', function() {
     const result = abeasFile.cleanData([['AF514', '0', '5', '10'], ['Ak514', '4','3', '4']]);
     const cleaned: abeasFile.requests[] = [
