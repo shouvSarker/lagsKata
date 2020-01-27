@@ -6,8 +6,8 @@ const entries = fs.readFileSync('./tests/testCases/testCase1.txt','utf8').split(
 
 describe('abeas', function() {
 
-  it('RequestGeneration', function() {
-    const result: abeasFile.requests = abeasFile.generateRequests('AF514', 0, 5, 10);
+  it('CustomerRequests', function() {
+    const result: abeasFile.requests = abeasFile.customerRequests('AF514', 0, 5, 10);
     const request: abeasFile.requests = 
     {
       name: 'AF514',
@@ -19,8 +19,8 @@ describe('abeas', function() {
     expect(result).to.eql(request);
   });
 
-  it('CombinationGeneration', function() {
-    const result: abeasFile.combinations = abeasFile.generateCombinations(['AF514', 'BF524'], 10);
+  it('ServiceCombinations', function() {
+    const result: abeasFile.combinations = abeasFile.serviceCombinations(['AF514', 'BF524'], 10);
     const combination: abeasFile.combinations = 
     {
       names: ['AF514', 'BF524'],
@@ -30,23 +30,23 @@ describe('abeas', function() {
     expect(result).to.eql(combination);
   });
 
-  it('entryDiscovery', function() {
-    const value: abeasFile.requests = abeasFile.generateRequests('AF514', 4, 5, 10);
-    const entryList: abeasFile.requests[] = [abeasFile.generateRequests('AF514', 0, 5, 10), abeasFile.generateRequests('AB514', 4, 5, 10), abeasFile.generateRequests('AC514', 10, 5, 10)];
-    const expected: abeasFile.requests[] = [abeasFile.generateRequests('AC514', 10, 5, 10)];
-    const result: abeasFile.requests[] = abeasFile.findEntries(entryList, value);
+  it('SuitableEntries', function() {
+    const value: abeasFile.requests = abeasFile.customerRequests('AF514', 4, 5, 10);
+    const entryList: abeasFile.requests[] = [abeasFile.customerRequests('AF514', 0, 5, 10), abeasFile.customerRequests('AB514', 4, 5, 10), abeasFile.customerRequests('AC514', 10, 5, 10)];
+    const expected: abeasFile.requests[] = [abeasFile.customerRequests('AC514', 10, 5, 10)];
+    const result: abeasFile.requests[] = abeasFile.suitableEntries(entryList, value);
     
     expect(result).to.eql(expected);
   });
 
-  it('entryChecking', function() {
+  it('EmptyEntries', function() {
     const emptyList: abeasFile.requests[] = [];
-    const entryList: abeasFile.requests[] = [abeasFile.generateRequests('AF514', 0, 5, 10), abeasFile.generateRequests('AB514', 4, 5, 10), abeasFile.generateRequests('AC514', 10, 5, 10)];
-    const resultEmpty: boolean = abeasFile.checkEntries(emptyList);
-    const resultList: boolean = abeasFile.checkEntries(entryList);
+    const entryList: abeasFile.requests[] = [abeasFile.customerRequests('AF514', 0, 5, 10), abeasFile.customerRequests('AB514', 4, 5, 10), abeasFile.customerRequests('AC514', 10, 5, 10)];
+    const resultEmpty: boolean = abeasFile.emptyEntries(emptyList);
+    const resultList: boolean = abeasFile.emptyEntries(entryList);
     
-    expect(resultEmpty).equal(false);
-    expect(resultList).equal(true);
+    expect(resultEmpty).equal(true);
+    expect(resultList).equal(false);
   });
 
   it('DataCleaning', function() {
