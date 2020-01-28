@@ -116,7 +116,10 @@ function mostProfitable(entries: readonly requests[]): combinations {
   return highestEarningCombination(earnings);
 }
 
-/* converts numeric strings into numbers and checks for validity (4 columns with column 2-4 numeric) */
+/* 
+* converts numeric strings into numbers and checks for validity (4 columns with column 2-4 numeric) 
+* has side effect if an error is encountered here
+*/
 export function cleanData(
   entries: readonly (readonly string[])[]
 ): readonly requests[] {
@@ -161,6 +164,3 @@ export function acceptedRequests(
     chosenSequence.totalEarning
   );
 }
-//       "plugin:functional/external-recommended",
-//             "plugin:prettier/@typescript-eslint",
-//       "plugin:prettier/recommended"

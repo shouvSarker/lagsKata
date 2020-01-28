@@ -5,7 +5,7 @@
   "main": "abeas.ts",
   "dependencies": {},
   "scripts": {
-    "test": "mocha -r ts-node/register ./tests/*.test.ts"
+    "test": "jest"
   },
   "eslintConfig": {
     "parser": "@typescript-eslint/parser",
@@ -24,10 +24,6 @@
       "prettier/@typescript-eslint",
       "plugin:prettier/recommended"
     ],
-    "env": {
-      "jest/globals": true,
-      "es6": true
-    },
     "plugins": [
       "jest",
       "sonarjs",
@@ -45,6 +41,7 @@
   },
   "devDependencies": {
     "@types/chai": "^4.2.7",
+    "@types/jest": "^25.1.0",
     "@types/mocha": "^5.2.7",
     "@types/node": "^12.12.25",
     "@types/react": "^16.9.11",
@@ -64,6 +61,7 @@
     "nyc": "^15.0.0",
     "prettier": "^1.19.1",
     "sonarjs": "^1.0.0",
+    "ts-jest": "^25.0.0",
     "ts-node": "^8.6.2",
     "type-coverage": "^2.3.1",
     "typedoc": "^0.16.9",
