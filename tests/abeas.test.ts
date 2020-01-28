@@ -50,7 +50,7 @@ describe('abeas', function() {
   });
 
   it('DataCleaning', function() {
-    const result = abeasFile.cleanData([['AF514', '0', '5', '10'], ['Ak514', '4','3', '4']]);
+    const result: readonly abeasFile.requests[] = abeasFile.cleanData([['AF514', '0', '5', '10'], ['Ak514', '4','3', '4']]);
     const cleaned: readonly abeasFile.requests[] = [
       {
         name: 'AF514',
@@ -71,7 +71,6 @@ describe('abeas', function() {
   it('mainFunction', function() {
     const result = abeasFile.acceptedRequests(entries);
     const answers: abeasFile.combinations = { names: [ 'AF514', 'BA01', 'CApp' ], totalEarning: 40 }
-    console.log(result);
     expect(result.names).to.eql(answers.names);
     expect(result.totalEarning).equal(answers.totalEarning);
   });
