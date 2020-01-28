@@ -32,16 +32,16 @@ describe('abeas', function() {
 
   it('SuitableEntries', function() {
     const value: abeasFile.requests = abeasFile.customerRequests('AF514', 4, 5, 10);
-    const entryList: abeasFile.requests[] = [abeasFile.customerRequests('AF514', 0, 5, 10), abeasFile.customerRequests('AB514', 4, 5, 10), abeasFile.customerRequests('AC514', 10, 5, 10)];
-    const expected: abeasFile.requests[] = [abeasFile.customerRequests('AC514', 10, 5, 10)];
-    const result: abeasFile.requests[] = abeasFile.suitableEntries(entryList, value);
+    const entryList: readonly abeasFile.requests[] = [abeasFile.customerRequests('AF514', 0, 5, 10), abeasFile.customerRequests('AB514', 4, 5, 10), abeasFile.customerRequests('AC514', 10, 5, 10)];
+    const expected: readonly abeasFile.requests[] = [abeasFile.customerRequests('AC514', 10, 5, 10)];
+    const result: readonly abeasFile.requests[] = abeasFile.suitableEntries(entryList, value);
     
     expect(result).to.eql(expected);
   });
 
   it('EmptyEntries', function() {
-    const emptyList: abeasFile.requests[] = [];
-    const entryList: abeasFile.requests[] = [abeasFile.customerRequests('AF514', 0, 5, 10), abeasFile.customerRequests('AB514', 4, 5, 10), abeasFile.customerRequests('AC514', 10, 5, 10)];
+    const emptyList: readonly abeasFile.requests[] = [];
+    const entryList: readonly abeasFile.requests[] = [abeasFile.customerRequests('AF514', 0, 5, 10), abeasFile.customerRequests('AB514', 4, 5, 10), abeasFile.customerRequests('AC514', 10, 5, 10)];
     const resultEmpty: boolean = abeasFile.emptyEntries(emptyList);
     const resultList: boolean = abeasFile.emptyEntries(entryList);
     
@@ -51,7 +51,7 @@ describe('abeas', function() {
 
   it('DataCleaning', function() {
     const result = abeasFile.cleanData([['AF514', '0', '5', '10'], ['Ak514', '4','3', '4']]);
-    const cleaned: abeasFile.requests[] = [
+    const cleaned: readonly abeasFile.requests[] = [
       {
         name: 'AF514',
         start: 0,

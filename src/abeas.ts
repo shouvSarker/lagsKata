@@ -4,22 +4,22 @@ http://codingdojo.org/kata/Lags/
 */
 
 export type requests = {
-    name: string
-    start: number
-    duration: number
-    earning: number
+    readonly name: string
+    readonly start: number
+    readonly duration: number
+    readonly earning: number
 }
 
 export type combinations = {
-    names: string[]
-    totalEarning: number
+    readonly names: string[]
+    readonly totalEarning: number
 }
 
-export function customerRequests(iniName: string, iniStart: number, iniDuration: number, iniEarning: number){
+export function customerRequests(iniName: string, iniStart: number, iniDuration: number, iniEarning: number): requests{
     return {name: iniName, start: iniStart, duration: iniDuration, earning: iniEarning};
 }
 
-export function serviceCombinations(iniNames: string[], iniTotal: number){
+export function serviceCombinations(iniNames: string[], iniTotal: number): combinations{
     return {names: iniNames, totalEarning: iniTotal};
 }
 
@@ -28,17 +28,17 @@ function throwError(message: string): void {
 }
 
 /* finds the entries whose start time is greater than head's start time and duration combined (i.e. can be run after head) */
-export function suitableEntries(passedEntries: requests[], value: requests): requests[]{
+export function suitableEntries(passedEntries: readonly requests[], value: requests): readonly requests[]{
     return passedEntries.slice(passedEntries.indexOf(value)).filter(entry => entry.start > (value.start + +value.duration));
 }
 
 /* checks if the passed array is empty */
-export function emptyEntries(passedEntries: requests[]): boolean{
+export function emptyEntries(passedEntries: readonly requests[]): boolean{
     return !(typeof passedEntries !== 'undefined' && passedEntries.length > 0) ? true : false;
 }
 
 /* processes the array to find all possible entry combinations that can be served subsequently */
-function probableChildEntries(passedEntries: requests[], curName: string): combinations{
+function probableChildEntries(passedEntries: readonly requests[], curName: string): combinations{
     /* calls getEarnings to get the total earning and list of customers for the list */
     const childEarnings: combinations = mostProfitable(passedEntries);
     return serviceCombinations(childEarnings.names.concat(curName), childEarnings.totalEarning);
@@ -55,12 +55,12 @@ function probableCombinations(passedSequence: combinations, curEarning: number):
 }
 
 /* returns the highest earning combination */
-function highestEarningCombination(combs: combinations[]): combinations{
-    return combs.sort(function(a, b){return b.totalEarning-a.totalEarning})[0];
+function highestEarningCombination(combs: readonly combinations[]): combinations{
+    return combs.slice().sort(function(a, b){return b.totalEarning-a.totalEarning})[0];
 }
 
 /* calculates all the possible combinations to serve and returns the one with the highest earnings */
-function mostProfitable(entries: requests[]): combinations{
+function mostProfitable(entries: readonly requests[]): combinations{
     /* gets all the possible sequences in which customers can be serverd */
     const earnings = entries.map(function(value: requests): combinations{
         /* finds all the entries eligible to be run after head */
@@ -75,7 +75,7 @@ function mostProfitable(entries: requests[]): combinations{
 }
 
 /* converts numeric strings into numbers and checks for validity (4 columns with column 2-4 numeric) */
-export function cleanData(entries: string[][]): requests[]{
+export function cleanData(entries: string[][]): readonly requests[]{
     return entries.map(function(value: string[]){
         value.length !== 4 && throwError("Expected four columns, got "+value.length+ " at row "+entries.indexOf(value));
         const cleanedValue = value.slice(1).map(function(member: string){
