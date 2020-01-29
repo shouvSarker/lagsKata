@@ -89,16 +89,16 @@ export function probableCombinations(
 }
 
 /* returns the highest earning combination */
-function highestEarningCombination(
-  combs: readonly combinations[]
+export function highestEarningCombination(
+  passedCombinations: readonly combinations[]
 ): combinations {
-  return combs.slice().sort(function(a, b) {
+  return passedCombinations.slice().sort(function(a, b) {
     return b.totalEarning - a.totalEarning;
   })[0];
 }
 
 /* calculates all the possible combinations to serve and returns the one with the highest earnings */
-function mostProfitable(entries: readonly requests[]): combinations {
+export function mostProfitable(entries: readonly requests[]): combinations {
   /* gets all the possible sequences in which customers can be serverd */
   const earnings = entries.map(function(value: requests): combinations {
     /* finds all the entries eligible to be run after the passed entry */
@@ -123,9 +123,6 @@ export function cleanData(
 ): readonly requests[] {
   return entries.map(function(value: readonly string[]) {
     // eslint-disable-next-line functional/no-expression-statement
-    typeof value === "undefined" &&
-      throwError("Expected four columns at every row, got undefined array");
-    // eslint-disable-next-line functional/no-expression-statement
     value.length !== 4 &&
       throwError(
         "Expected four columns, got " +
@@ -134,9 +131,8 @@ export function cleanData(
           entries.indexOf(value)
       );
     const cleanedValue = value.slice(1).map(function(member: string) {
-      const dirtyData = isNaN(parseInt(member)) ? true : false;
       // eslint-disable-next-line functional/no-expression-statement
-      dirtyData &&
+      isNaN(parseInt(member)) &&
         throwError(
           member +
             " is not a number at row: " +

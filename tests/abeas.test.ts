@@ -194,6 +194,33 @@ test("Should return a combination unchanged if there is only one name, added wit
   );
 });
 
+test("Should return the top combination whose earning should be greater than or equal to any other earning on the list", () => {
+  const testSizes = Array.from(Array(10).keys()).slice(1);
+  testSizes.map(function(testSize) {
+    fc.assert(
+      fc.property(
+        fc.array(fc.array(fc.string()), testSize, testSize),
+        fc.array(fc.nat(), testSize, testSize),
+        fc.nat(testSize - 1),
+        (names, earnings, arbIndex) => {
+          const passedCombination: readonly abeasFile.combinations[] = names.map(
+            function(nameList) {
+              const index = names.indexOf(nameList);
+              return abeasFile.serviceCombinations(nameList, earnings[index]);
+            }
+          );
+          const topCombination: abeasFile.combinations = abeasFile.highestEarningCombination(
+            passedCombination
+          );
+          expect(topCombination.totalEarning).toBeGreaterThanOrEqual(
+            passedCombination[arbIndex].totalEarning
+          );
+        }
+      )
+    );
+  });
+});
+
 test("Should throw is an error saing it expected four column, but got something else", () => {
   const testSizes = Array.from(Array(10).keys()).slice(1);
   testSizes.map(function(testSize) {
@@ -202,7 +229,7 @@ test("Should throw is an error saing it expected four column, but got something 
       fc.property(
         fc.array(fc.array(fc.string(), 1, 3)),
         fc.array(fc.array(fc.string(), 5, 100)),
-        fc.nat(),
+        fc.nat(testSize - 1),
         fc.array(fc.string(), testSize, testSize),
         fc.array(fc.nat(), testSize * 3, testSize * 3),
         (lessStrings, moreStrings, arbIndex, customerNames, numberDetails) => {
@@ -218,13 +245,33 @@ test("Should throw is an error saing it expected four column, but got something 
               ];
             }
           );
+
+          const notNumbers: readonly (readonly string[])[] = customerNames.map(
+            function(name) {
+              const index = customerNames.indexOf(name);
+              return [
+                name,
+                String(numberDetails[3 * index]).concat(name),
+                String(numberDetails[3 * index + 1]).concat(name),
+                String(numberDetails[3 * index + 2]).concat(name)
+              ];
+            }
+          );
+
+          try {
+            // when data is being cleaned with columns less than three
+            abeasFile.cleanData(notNumbers);
+          } catch (e) {
+            // it should throw an error with a error message pointing out the current row and number of columns
+            expect(e.message).toContain("is not a number at");
+          }
           // a try-catch block was used because indirect calls to throw error crashes the code
           try {
             // when data is being cleaned with columns less than three
             abeasFile.cleanData(lessStrings);
           } catch (e) {
             // it should throw an error with a error message pointing out the current row and number of columns
-            expect(e.message).toContain("Expected four columns");
+            expect(e.message).toContain("Expected four columns, got");
           }
           try {
             // when data is being cleaned with one column less than four in an arbitary position
