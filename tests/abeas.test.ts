@@ -48,6 +48,10 @@ test('Should return all the requests that can be run after the specified value o
       const result: readonly abeasFile.requests[] = abeasFile.suitableEntries(requestList, value);
       // then I expect the returned array to be shorter than the remaining portion of the array after value index
       expect(result.length).toBeLessThan(requestList.length - valueIndex);
+      // then I expect start time of every member of the array to be greater than given value's start time and duration combined
+      result.map(function(resultValue){
+        expect(resultValue.start).toBeGreaterThan(value.start + value.duration);
+      });
     }
     )
   );
