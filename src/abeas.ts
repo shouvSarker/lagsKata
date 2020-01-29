@@ -41,19 +41,19 @@ function throwError(message: string): void {
   throw new Error(message); // eslint-disable-line functional/no-throw-statement
 }
 
-/* finds the entries whose start time is greater than head's start time and duration combined (i.e. can be run after head) */
+/* finds the entries whose start time is greater than the given value's start time and duration combined (i.e. can be run after given value) */
 export function suitableEntries(
   passedEntries: readonly requests[],
   value: requests
 ): readonly requests[] {
   return passedEntries
     .slice(passedEntries.indexOf(value))
-    .filter(entry => entry.start > value.start + +value.duration);
+    .filter(entry => entry.start > value.start + value.duration);
 }
 
 /* checks if the passed array is empty */
 export function emptyEntries(passedEntries: readonly requests[]): boolean {
-  return !(typeof passedEntries !== "undefined" && passedEntries.length > 0)
+  return !(passedEntries.length > 0)
     ? true
     : false;
 }
@@ -124,6 +124,7 @@ export function cleanData(
   entries: readonly (readonly string[])[]
 ): readonly requests[] {
   return entries.map(function(value: readonly string[]) {
+    typeof value === 'undefined' && throwError("Expected four columns, got undefined array");
     // eslint-disable-next-line functional/no-expression-statement
     value.length !== 4 &&
       throwError(
@@ -133,7 +134,7 @@ export function cleanData(
           entries.indexOf(value)
       );
     const cleanedValue = value.slice(1).map(function(member: string) {
-      const dirtyData = isNaN(+member) ? true : false;
+      const dirtyData = isNaN(parseInt(member)) ? true : false;
       // eslint-disable-next-line functional/no-expression-statement
       dirtyData &&
         throwError(
@@ -143,7 +144,7 @@ export function cleanData(
             " column: " +
             value.indexOf(member)
         );
-      return +member;
+      return parseInt(member);
     });
     return customerRequests(
       value[0],
