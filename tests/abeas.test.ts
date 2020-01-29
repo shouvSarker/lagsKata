@@ -53,7 +53,7 @@ test("Should return all the requests that can be run after the specified value o
   fc.assert(
     fc.property(
       fc.array(fc.string(), testSize, testSize),
-      fc.array(fc.nat(), testSize * 3, testSize * 3),
+      fc.array(fc.integer(), testSize * 3, testSize * 3),
       fc.nat(testSize - 1),
       (customerNames, numberDetails, valueIndex) => {
         // given an array of requests
@@ -76,7 +76,9 @@ test("Should return all the requests that can be run after the specified value o
           value
         );
         // then I expect the returned array to be shorter than the remaining portion of the array after value index
-        expect(result.length).toBeLessThan(requestList.length - valueIndex);
+        expect(result.length).toBeLessThanOrEqual(
+          requestList.length - valueIndex
+        );
         // then I expect start time of every member of the array to be greater than given value's start time and duration combined
         result.map(function(resultValue) {
           expect(resultValue.start).toBeGreaterThan(
@@ -94,7 +96,7 @@ test("Should return false as the provided requests list is not empty", () => {
     fc.assert(
       fc.property(
         fc.array(fc.string(), testSize, testSize),
-        fc.array(fc.nat(), testSize * 3, testSize * 3),
+        fc.array(fc.integer(), testSize * 3, testSize * 3),
         (customerNames, numberDetails) => {
           // given an array of requests that is not empty
           const requestList: readonly abeasFile.requests[] = customerNames.map(
@@ -131,7 +133,7 @@ test("Should return a combination (current value) from a request", () => {
   fc.assert(
     fc.property(
       fc.string(),
-      fc.array(fc.nat(), 3, 3),
+      fc.array(fc.integer(), 3, 3),
       (customerName, numberDetails) => {
         // given a customer request
         const passedRequest: abeasFile.requests = abeasFile.customerRequests(
@@ -158,8 +160,8 @@ test("Should return a combination unchanged if there is only one name, added wit
     fc.property(
       fc.array(fc.string(), 2, 10),
       fc.string(),
-      fc.nat(),
-      fc.nat(),
+      fc.integer(),
+      fc.integer(),
       (names, singleName, earning, currentEarning) => {
         // given a combination of names  and total earning
         const passedCombination: abeasFile.combinations = abeasFile.serviceCombinations(
@@ -200,7 +202,7 @@ test("Should return the top combination whose earning should be greater than or 
     fc.assert(
       fc.property(
         fc.array(fc.array(fc.string()), testSize, testSize),
-        fc.array(fc.nat(), testSize, testSize),
+        fc.array(fc.integer(), testSize, testSize),
         fc.nat(testSize - 1),
         (names, earnings, arbIndex) => {
           const passedCombination: readonly abeasFile.combinations[] = names.map(
@@ -231,7 +233,7 @@ test("Should throw is an error saing it expected four column, but got something 
         fc.array(fc.array(fc.string(), 5, 100)),
         fc.nat(testSize - 1),
         fc.array(fc.string(), testSize, testSize),
-        fc.array(fc.nat(), testSize * 3, testSize * 3),
+        fc.array(fc.integer(), testSize * 3, testSize * 3),
         (lessStrings, moreStrings, arbIndex, customerNames, numberDetails) => {
           // creates a list of valid input in a 2D string array
           const fourStrings: readonly (readonly string[])[] = customerNames.map(
