@@ -127,6 +127,73 @@ test("Should return false as the provided requests list is empty", () => {
   expect(resultEmpty).toBe(true);
 });
 
+test("Should return a combination (current value) from a request", () => {
+  fc.assert(
+    fc.property(
+      fc.string(),
+      fc.array(fc.nat(), 3, 3),
+      (customerName, numberDetails) => {
+        // given a customer request
+        const passedRequest: abeasFile.requests = abeasFile.customerRequests(
+          customerName,
+          numberDetails[0],
+          numberDetails[1],
+          numberDetails[2]
+        );
+        // when I get the cur value
+        const curCombination: abeasFile.combinations = abeasFile.curValue(
+          passedRequest
+        );
+        // then I expect the name to be same as customerName
+        expect(curCombination.names).toStrictEqual([customerName]);
+        // and then I expect the value to be same as the last member of numbers array
+        expect(curCombination.totalEarning).toBe(numberDetails[2]);
+      }
+    )
+  );
+});
+
+test("Should return a combination unchanged if there is only one name, added with earning if it has multiple names in its array", () => {
+  fc.assert(
+    fc.property(
+      fc.array(fc.string(), 2, 10),
+      fc.string(),
+      fc.nat(),
+      fc.nat(),
+      (names, singleName, earning, currentEarning) => {
+        // given a combination of names  and total earning
+        const passedCombination: abeasFile.combinations = abeasFile.serviceCombinations(
+          names,
+          earning
+        );
+        // when I get the current combination
+        const curCombination: abeasFile.combinations = abeasFile.probableCombinations(
+          passedCombination,
+          currentEarning
+        );
+        // then I expect the names to be same as passed
+        expect(curCombination.names).toStrictEqual(passedCombination.names);
+        // and then I expect the earning to be added with passed earning
+        expect(curCombination.totalEarning).toBe(earning + currentEarning);
+        // given a combination of one single name and total earning
+        const singleCombination: abeasFile.combinations = abeasFile.serviceCombinations(
+          [singleName],
+          earning
+        );
+        // when I get the current combination
+        const curSingleCombination: abeasFile.combinations = abeasFile.probableCombinations(
+          singleCombination,
+          currentEarning
+        );
+        // then I expect the name to be same as passed
+        expect(curSingleCombination.names).toStrictEqual([singleName]);
+        // then I expect the earning to remain the same
+        expect(curSingleCombination.totalEarning).toBe(earning);
+      }
+    )
+  );
+});
+
 test("Should throw is an error saing it expected four column, but got something else", () => {
   const testSizes = Array.from(Array(10).keys()).slice(1);
   testSizes.map(function(testSize) {

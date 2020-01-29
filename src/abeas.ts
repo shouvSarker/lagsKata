@@ -53,9 +53,7 @@ export function suitableEntries(
 
 /* checks if the passed array is empty */
 export function emptyEntries(passedEntries: readonly requests[]): boolean {
-  return !(passedEntries.length > 0)
-    ? true
-    : false;
+  return passedEntries.length <= 0 ? true : false;
 }
 
 /* processes the array to find all possible entry combinations that can be served subsequently */
@@ -73,12 +71,12 @@ function probableChildEntries(
 }
 
 /* picks out the current customer name, earnings and returns them in a list with a flag that its children were not processed */
-function curValue(passedValue: requests): combinations {
+export function curValue(passedValue: requests): combinations {
   return serviceCombinations([passedValue.name], passedValue.earning);
 }
 
 /* returns combination with earnings updated based on all the earnings of the requests in the combination */
-function probableCombinations(
+export function probableCombinations(
   passedSequence: combinations,
   curEarning: number
 ): combinations {
@@ -103,9 +101,9 @@ function highestEarningCombination(
 function mostProfitable(entries: readonly requests[]): combinations {
   /* gets all the possible sequences in which customers can be serverd */
   const earnings = entries.map(function(value: requests): combinations {
-    /* finds all the entries eligible to be run after head */
+    /* finds all the entries eligible to be run after the passed entry */
     const eligibleEntries = suitableEntries(entries, value);
-    /* gets the highest earning sequence with head as the first order */
+    /* gets the highest earning sequence with passed entry as the first order */
     const sequence: combinations = emptyEntries(eligibleEntries)
       ? curValue(value)
       : probableChildEntries(eligibleEntries, value.name);
@@ -116,15 +114,17 @@ function mostProfitable(entries: readonly requests[]): combinations {
   return highestEarningCombination(earnings);
 }
 
-/* 
-* converts numeric strings into numbers and checks for validity (4 columns with column 2-4 numeric) 
-* has side effect if an error is encountered here
-*/
+/*
+ * converts numeric strings into numbers and checks for validity (4 columns with column 2-4 numeric)
+ * has side effect if an error is encountered here
+ */
 export function cleanData(
   entries: readonly (readonly string[])[]
 ): readonly requests[] {
   return entries.map(function(value: readonly string[]) {
-    typeof value === 'undefined' && throwError("Expected four columns, got undefined array");
+    // eslint-disable-next-line functional/no-expression-statement
+    typeof value === "undefined" &&
+      throwError("Expected four columns at every row, got undefined array");
     // eslint-disable-next-line functional/no-expression-statement
     value.length !== 4 &&
       throwError(
