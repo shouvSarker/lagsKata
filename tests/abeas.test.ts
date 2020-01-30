@@ -1,3 +1,5 @@
+/* eslint-disable functional/no-expression-statement */
+
 import * as fs from "fs";
 import * as fc from "fast-check";
 import * as abeasFile from "../src/abeas";
@@ -235,7 +237,14 @@ test("Should throw is an error saing it expected four column, but got something 
         fc.array(fc.string(), testSize, testSize),
         fc.array(fc.integer(), testSize * 3, testSize * 3),
         fc.array(fc.string(), testSize * 3, testSize * 3),
-        (lessStrings, moreStrings, arbIndex, customerNames, numberDetails, stringDetails) => {
+        (
+          lessStrings,
+          moreStrings,
+          arbIndex,
+          customerNames,
+          numberDetails,
+          stringDetails
+        ) => {
           // creates a list of valid input in a 2D string array
           const fourStrings: readonly (readonly string[])[] = customerNames.map(
             function(name) {
@@ -263,12 +272,16 @@ test("Should throw is an error saing it expected four column, but got something 
 
           // when data is being cleaned with second third and fourth columns not having numeric strings
           // it should throw an error saying it is not a number
-          expect(() => abeasFile.cleanData(notNumbers)).toThrowError("is not a number");
- 
+          expect(() => abeasFile.cleanData(notNumbers)).toThrowError(
+            "is not a number"
+          );
+
           // when data is being cleaned with columns less than three
           // it should throw an error with a error message pointing out that it expected four columns but got n
-          expect(() => abeasFile.cleanData(lessStrings)).toThrowError("Expected four columns, got");
-          
+          expect(() => abeasFile.cleanData(lessStrings)).toThrowError(
+            "Expected four columns, got"
+          );
+
           // when data is being cleaned with one column less than four in an arbitary position
           const randomThree = [
             ...fourStrings.slice(0, arbIndex),
@@ -276,11 +289,15 @@ test("Should throw is an error saing it expected four column, but got something 
             ...fourStrings.slice(arbIndex)
           ];
           // it should throw an error with a error message pointing out it expected four columns but got n
-          expect(() => abeasFile.cleanData(randomThree)).toThrowError("Expected four columns");
+          expect(() => abeasFile.cleanData(randomThree)).toThrowError(
+            "Expected four columns"
+          );
 
           // when data is being cleaned with columns more than four
           // it should throw an error with a error message pointing out that it expected four columns but got n
-          expect(() => abeasFile.cleanData(moreStrings)).toThrowError("Expected four columns, got");
+          expect(() => abeasFile.cleanData(moreStrings)).toThrowError(
+            "Expected four columns, got"
+          );
         }
       )
     );

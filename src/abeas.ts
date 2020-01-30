@@ -70,7 +70,7 @@ export function throwError(message: string): void {
 }
 
 /**
- * finds the entries whose start time is greater than the given value's start time and duration combined (i.e. can be run after given value) 
+ * finds the entries whose start time is greater than the given value's start time and duration combined (i.e. can be run after given value)
  * @param passedEntries the list of entries from which suitable entries will be identified
  * @param value the request from which serving should begin
  */
@@ -84,11 +84,14 @@ export function suitableEntries(
 }
 
 /**
- * checks if the passed array is empty 
+ * checks if the passed array is empty
  * @param passedEntries the list of entries whose emptiness will be determined
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function emptyEntries(passedEntries: any): boolean {
-  return !(passedEntries !== 'undefined' && passedEntries.length > 0) ? true : false;
+  return !(passedEntries !== "undefined" && passedEntries.length > 0)
+    ? true
+    : false;
 }
 
 /**
@@ -101,7 +104,7 @@ function probableChildEntries(
   curName: string
 ): Combination {
   /**
-   *calls getEarnings to get the total earning and list of customers for the list 
+   *calls getEarnings to get the total earning and list of customers for the list
    */
   // eslint-disable-next-line @typescript-eslint/no-use-before-define
   const childEarnings: Combination = mostProfitable(passedEntries);
@@ -137,7 +140,7 @@ export function probableCombinations(
 }
 
 /**
- * returns the highest earning combination 
+ * returns the highest earning combination
  * @param passedCombinations the list of combinations in which customers can be served
  */
 export function highestEarningCombination(
@@ -149,7 +152,7 @@ export function highestEarningCombination(
 }
 
 /**
- * calculates all the possible combinations to serve and returns the one with the highest earnings 
+ * calculates all the possible combinations to serve and returns the one with the highest earnings
  * @param entries a list of customer requests
  */
 export function mostProfitable(entries: readonly Request[]): Combination {
@@ -176,30 +179,38 @@ export function mostProfitable(entries: readonly Request[]): Combination {
 export function cleanData(
   entries: readonly (readonly string[])[]
 ): readonly Request[] {
-  emptyEntries(entries) && throwError("Expected four columns, got empty input"); 
+  // eslint-disable-next-line functional/no-expression-statement
+  emptyEntries(entries) && throwError("Expected four columns, got empty input");
   return entries.map(function(value: readonly string[]) {
     // eslint-disable-next-line functional/no-expression-statement
-    emptyEntries(value) && throwError("Expected four columns, got empty input"); 
+    emptyEntries(value) && throwError("Expected four columns, got empty input");
+    // eslint-disable-next-line functional/no-expression-statement
     value.length !== 4 &&
       throwError(
         "Expected four columns, got " +
           value.length +
           " at row " +
           entries.indexOf(value)
-      )
+      );
     const cleanedValue = value.slice(1).map(function(member: string) {
       // eslint-disable-next-line functional/no-expression-statement
-      member ?
-      isNaN(+(member)) &&
-        throwError(
-          member +
-            " is not a number at row: " +
-            entries.indexOf(value) +
-            " column: " +
-            value.indexOf(member)
-        ) :
-        throwError(member + " is not a number, actually Empty string at row: " + entries.indexOf(value) + " column: " + value.indexOf(member));
-      return +(member);
+      member
+        ? isNaN(+member) &&
+          throwError(
+            member +
+              " is not a number at row: " +
+              entries.indexOf(value) +
+              " column: " +
+              value.indexOf(member)
+          )
+        : throwError(
+            member +
+              " is not a number, actually Empty string at row: " +
+              entries.indexOf(value) +
+              " column: " +
+              value.indexOf(member)
+          );
+      return +member;
     });
     return customerRequests(
       value[0],
