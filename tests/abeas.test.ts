@@ -260,6 +260,7 @@ test("Should throw is an error saing it expected four column, but got something 
             }
           );
 
+          // a try-catch block was used because indirect calls to throw error crashes the code
           try {
             // when data is being cleaned with columns less than three
             abeasFile.cleanData(notNumbers);
@@ -267,7 +268,6 @@ test("Should throw is an error saing it expected four column, but got something 
             // it should throw an error with a error message pointing out the current row and number of columns
             expect(e.message).toContain("is not a number at");
           }
-          // a try-catch block was used because indirect calls to throw error crashes the code
           try {
             // when data is being cleaned with columns less than three
             abeasFile.cleanData(lessStrings);
