@@ -65,7 +65,7 @@ export function serviceCombinations(
  * @param message the error message to be thrown
  */
 // eslint-disable-next-line functional/no-return-void
-function throwError(message: string): void {
+export function throwError(message: string): void {
   throw new Error(message); // eslint-disable-line functional/no-throw-statement
 }
 
@@ -87,8 +87,8 @@ export function suitableEntries(
  * checks if the passed array is empty 
  * @param passedEntries the list of entries whose emptiness will be determined
  */
-export function emptyEntries(passedEntries: readonly Request[]): boolean {
-  return passedEntries.length <= 0 ? true : false;
+export function emptyEntries(passedEntries: any): boolean {
+  return !(passedEntries !== 'undefined' && passedEntries.length > 0) ? true : false;
 }
 
 /**
@@ -176,26 +176,30 @@ export function mostProfitable(entries: readonly Request[]): Combination {
 export function cleanData(
   entries: readonly (readonly string[])[]
 ): readonly Request[] {
+  emptyEntries(entries) && throwError("Expected four columns, got empty input"); 
   return entries.map(function(value: readonly string[]) {
     // eslint-disable-next-line functional/no-expression-statement
+    emptyEntries(value) && throwError("Expected four columns, got empty input"); 
     value.length !== 4 &&
       throwError(
         "Expected four columns, got " +
           value.length +
           " at row " +
           entries.indexOf(value)
-      );
+      )
     const cleanedValue = value.slice(1).map(function(member: string) {
       // eslint-disable-next-line functional/no-expression-statement
-      isNaN(parseInt(member)) &&
+      member ?
+      isNaN(+(member)) &&
         throwError(
           member +
             " is not a number at row: " +
             entries.indexOf(value) +
             " column: " +
             value.indexOf(member)
-        );
-      return parseInt(member);
+        ) :
+        throwError(member + " is not a number, actually Empty string at row: " + entries.indexOf(value) + " column: " + value.indexOf(member));
+      return +(member);
     });
     return customerRequests(
       value[0],

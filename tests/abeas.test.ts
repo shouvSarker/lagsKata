@@ -234,7 +234,8 @@ test("Should throw is an error saing it expected four column, but got something 
         fc.nat(testSize - 1),
         fc.array(fc.string(), testSize, testSize),
         fc.array(fc.integer(), testSize * 3, testSize * 3),
-        (lessStrings, moreStrings, arbIndex, customerNames, numberDetails) => {
+        fc.array(fc.string(), testSize * 3, testSize * 3),
+        (lessStrings, moreStrings, arbIndex, customerNames, numberDetails, stringDetails) => {
           // creates a list of valid input in a 2D string array
           const fourStrings: readonly (readonly string[])[] = customerNames.map(
             function(name) {
@@ -253,46 +254,33 @@ test("Should throw is an error saing it expected four column, but got something 
               const index = customerNames.indexOf(name);
               return [
                 name,
-                String(numberDetails[3 * index]).concat(name),
-                String(numberDetails[3 * index + 1]).concat(name),
-                String(numberDetails[3 * index + 2]).concat(name)
+                stringDetails[3 * index + 1],
+                stringDetails[3 * index + 2],
+                stringDetails[3 * index + 3]
               ];
             }
           );
 
-          // a try-catch block was used because indirect calls to throw error crashes the code
-          try {
-            // when data is being cleaned with columns less than three
-            abeasFile.cleanData(notNumbers);
-          } catch (e) {
-            // it should throw an error with a error message pointing out the current row and number of columns
-            expect(e.message).toContain("is not a number at");
-          }
-          try {
-            // when data is being cleaned with columns less than three
-            abeasFile.cleanData(lessStrings);
-          } catch (e) {
-            // it should throw an error with a error message pointing out the current row and number of columns
-            expect(e.message).toContain("Expected four columns, got");
-          }
-          try {
-            // when data is being cleaned with one column less than four in an arbitary position
-            abeasFile.cleanData([
-              ...fourStrings.slice(0, arbIndex),
-              ...lessStrings,
-              ...fourStrings.slice(arbIndex)
-            ]);
-          } catch (e) {
-            // it should throw an error with a error message pointing out the current row and number of columns
-            expect(e.message).toContain("Expected four columns");
-          }
-          try {
-            // when data is being cleaned with columns more than four
-            abeasFile.cleanData(moreStrings);
-          } catch (e) {
-            // it should throw an error with a error message pointing out the current row and number of columns
-            expect(e.message).toContain("Expected four columns");
-          }
+          // when data is being cleaned with second third and fourth columns not having numeric strings
+          // it should throw an error saying it is not a number
+          expect(() => abeasFile.cleanData(notNumbers)).toThrowError("is not a number");
+ 
+          // when data is being cleaned with columns less than three
+          // it should throw an error with a error message pointing out that it expected four columns but got n
+          expect(() => abeasFile.cleanData(lessStrings)).toThrowError("Expected four columns, got");
+          
+          // when data is being cleaned with one column less than four in an arbitary position
+          const randomThree = [
+            ...fourStrings.slice(0, arbIndex),
+            [customerNames[0], stringDetails[0], customerNames[0]],
+            ...fourStrings.slice(arbIndex)
+          ];
+          // it should throw an error with a error message pointing out it expected four columns but got n
+          expect(() => abeasFile.cleanData(randomThree)).toThrowError("Expected four columns");
+
+          // when data is being cleaned with columns more than four
+          // it should throw an error with a error message pointing out that it expected four columns but got n
+          expect(() => abeasFile.cleanData(moreStrings)).toThrowError("Expected four columns, got");
         }
       )
     );
