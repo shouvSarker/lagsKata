@@ -12,7 +12,7 @@ test("Should return an object with a name, start, duration and earning key equal
       fc.integer(),
       (customerName, start, duration, earning) => {
         // when I convert them to a request object
-        const result: abeasFile.requests = abeasFile.customerRequests(
+        const result: abeasFile.Request = abeasFile.customerRequests(
           customerName,
           start,
           duration,
@@ -36,7 +36,7 @@ test("Should return an object with names, totalEarning key equal to the params",
       fc.integer(),
       (customerNames, customerEarning) => {
         // when I convert them to a combination object
-        const result: abeasFile.combinations = abeasFile.serviceCombinations(
+        const result: abeasFile.Combination = abeasFile.serviceCombinations(
           customerNames,
           customerEarning
         );
@@ -57,7 +57,7 @@ test("Should return all the requests that can be run after the specified value o
       fc.nat(testSize - 1),
       (customerNames, numberDetails, valueIndex) => {
         // given an array of requests
-        const requestList: readonly abeasFile.requests[] = customerNames.map(
+        const requestList: readonly abeasFile.Request[] = customerNames.map(
           function(name) {
             const index = customerNames.indexOf(name);
             return abeasFile.customerRequests(
@@ -69,9 +69,9 @@ test("Should return all the requests that can be run after the specified value o
           }
         );
         // and a value from that array
-        const value: abeasFile.requests = requestList[valueIndex];
+        const value: abeasFile.Request = requestList[valueIndex];
         // when I calculate all entries eligible to be run after value
-        const result: readonly abeasFile.requests[] = abeasFile.suitableEntries(
+        const result: readonly abeasFile.Request[] = abeasFile.suitableEntries(
           requestList,
           value
         );
@@ -99,7 +99,7 @@ test("Should return false as the provided requests list is not empty", () => {
         fc.array(fc.integer(), testSize * 3, testSize * 3),
         (customerNames, numberDetails) => {
           // given an array of requests that is not empty
-          const requestList: readonly abeasFile.requests[] = customerNames.map(
+          const requestList: readonly abeasFile.Request[] = customerNames.map(
             function(name) {
               const index = customerNames.indexOf(name);
               return abeasFile.customerRequests(
@@ -122,7 +122,7 @@ test("Should return false as the provided requests list is not empty", () => {
 
 test("Should return false as the provided requests list is empty", () => {
   // given an empty array
-  const emptyList: readonly abeasFile.requests[] = [];
+  const emptyList: readonly abeasFile.Request[] = [];
   // when I calculate if the array is empty
   const resultEmpty: boolean = abeasFile.emptyEntries(emptyList);
   // then I expect it to be true
@@ -136,14 +136,14 @@ test("Should return a combination (current value) from a request", () => {
       fc.array(fc.integer(), 3, 3),
       (customerName, numberDetails) => {
         // given a customer request
-        const passedRequest: abeasFile.requests = abeasFile.customerRequests(
+        const passedRequest: abeasFile.Request = abeasFile.customerRequests(
           customerName,
           numberDetails[0],
           numberDetails[1],
           numberDetails[2]
         );
         // when I get the cur value
-        const curCombination: abeasFile.combinations = abeasFile.curValue(
+        const curCombination: abeasFile.Combination = abeasFile.curValue(
           passedRequest
         );
         // then I expect the name to be same as customerName
@@ -164,12 +164,12 @@ test("Should return a combination unchanged if there is only one name, added wit
       fc.integer(),
       (names, singleName, earning, currentEarning) => {
         // given a combination of names  and total earning
-        const passedCombination: abeasFile.combinations = abeasFile.serviceCombinations(
+        const passedCombination: abeasFile.Combination = abeasFile.serviceCombinations(
           names,
           earning
         );
         // when I get the current combination
-        const curCombination: abeasFile.combinations = abeasFile.probableCombinations(
+        const curCombination: abeasFile.Combination = abeasFile.probableCombinations(
           passedCombination,
           currentEarning
         );
@@ -178,12 +178,12 @@ test("Should return a combination unchanged if there is only one name, added wit
         // and then I expect the earning to be added with passed earning
         expect(curCombination.totalEarning).toBe(earning + currentEarning);
         // given a combination of one single name and total earning
-        const singleCombination: abeasFile.combinations = abeasFile.serviceCombinations(
+        const singleCombination: abeasFile.Combination = abeasFile.serviceCombinations(
           [singleName],
           earning
         );
         // when I get the current combination
-        const curSingleCombination: abeasFile.combinations = abeasFile.probableCombinations(
+        const curSingleCombination: abeasFile.Combination = abeasFile.probableCombinations(
           singleCombination,
           currentEarning
         );
@@ -205,13 +205,13 @@ test("Should return the top combination whose earning should be greater than or 
         fc.array(fc.integer(), testSize, testSize),
         fc.nat(testSize - 1),
         (names, earnings, arbIndex) => {
-          const passedCombination: readonly abeasFile.combinations[] = names.map(
+          const passedCombination: readonly abeasFile.Combination[] = names.map(
             function(nameList) {
               const index = names.indexOf(nameList);
               return abeasFile.serviceCombinations(nameList, earnings[index]);
             }
           );
-          const topCombination: abeasFile.combinations = abeasFile.highestEarningCombination(
+          const topCombination: abeasFile.Combination = abeasFile.highestEarningCombination(
             passedCombination
           );
           expect(topCombination.totalEarning).toBeGreaterThanOrEqual(
@@ -307,7 +307,7 @@ test("MainFunction", () => {
       return row.split(" ");
     });
   const result = abeasFile.acceptedRequests(entries);
-  const answers: abeasFile.combinations = {
+  const answers: abeasFile.Combination = {
     names: ["AF514", "BA01", "CApp"],
     totalEarning: 40
   };

@@ -3,24 +3,43 @@ Solution file for abeas flights problem
 http://codingdojo.org/kata/Lags/
 */
 
-export type requests = {
+/**
+ * This defines a customer request type for a flight
+ */
+export type Request = {
+  /** name of the person/company requesting a flight */
   readonly name: string;
+  /** start time for the flight */
   readonly start: number;
+  /** total time required for the flight to be completed */
   readonly duration: number;
+  /** earnings from that flight */
   readonly earning: number;
 };
 
-export type combinations = {
+/**
+ * This defines a combination of flights that can be run after one another and total earnings from them
+ */
+export type Combination = {
+  /** names of the persons/companies requesting a flight */
   readonly names: readonly string[];
+  /** total money earned from this sequence of trips */
   readonly totalEarning: number;
 };
 
+/**
+ * This creates a customer request in a structured format
+ * @param iniName the name of the entity making the request
+ * @param iniStart start time for the flight
+ * @param iniDuration total duration of the flight
+ * @param iniEarning earning from that flight
+ */
 export function customerRequests(
   iniName: string,
   iniStart: number,
   iniDuration: number,
   iniEarning: number
-): requests {
+): Request {
   return {
     name: iniName,
     start: iniStart,
@@ -29,57 +48,86 @@ export function customerRequests(
   };
 }
 
+/**
+ * This creates a combination of flights that be run subsequently
+ * @param iniNames names of the flights that can be served subsequently
+ * @param iniTotal total earnings from those flights
+ */
 export function serviceCombinations(
   iniNames: readonly string[],
   iniTotal: number
-): combinations {
+): Combination {
   return { names: iniNames, totalEarning: iniTotal };
 }
 
+/**
+ * Throws an error according to the passed message
+ * @param message the error message to be thrown
+ */
 // eslint-disable-next-line functional/no-return-void
 function throwError(message: string): void {
   throw new Error(message); // eslint-disable-line functional/no-throw-statement
 }
 
-/* finds the entries whose start time is greater than the given value's start time and duration combined (i.e. can be run after given value) */
+/**
+ * finds the entries whose start time is greater than the given value's start time and duration combined (i.e. can be run after given value) 
+ * @param passedEntries the list of entries from which suitable entries will be identified
+ * @param value the request from which serving should begin
+ */
 export function suitableEntries(
-  passedEntries: readonly requests[],
-  value: requests
-): readonly requests[] {
+  passedEntries: readonly Request[],
+  value: Request
+): readonly Request[] {
   return passedEntries
     .slice(passedEntries.indexOf(value))
     .filter(entry => entry.start > value.start + value.duration);
 }
 
-/* checks if the passed array is empty */
-export function emptyEntries(passedEntries: readonly requests[]): boolean {
+/**
+ * checks if the passed array is empty 
+ * @param passedEntries the list of entries whose emptiness will be determined
+ */
+export function emptyEntries(passedEntries: readonly Request[]): boolean {
   return passedEntries.length <= 0 ? true : false;
 }
 
-/* processes the array to find all possible entry combinations that can be served subsequently */
+/**
+ * processes the array to find all possible entry combinations that can be served subsequently
+ * @param passedEntries the list of entries from which probable entries are going to be identified
+ * @param curName the name of the current entry whose subsequent entries are being tested
+ */
 function probableChildEntries(
-  passedEntries: readonly requests[],
+  passedEntries: readonly Request[],
   curName: string
-): combinations {
-  /* calls getEarnings to get the total earning and list of customers for the list */
+): Combination {
+  /**
+   *calls getEarnings to get the total earning and list of customers for the list 
+   */
   // eslint-disable-next-line @typescript-eslint/no-use-before-define
-  const childEarnings: combinations = mostProfitable(passedEntries);
+  const childEarnings: Combination = mostProfitable(passedEntries);
   return serviceCombinations(
     childEarnings.names.concat(curName),
     childEarnings.totalEarning
   );
 }
 
-/* picks out the current customer name, earnings and returns them in a list with a flag that its children were not processed */
-export function curValue(passedValue: requests): combinations {
+/**
+ * picks out the current customer name, earnings from a request and returns them in a list
+ * @param passedValue the request to be processed
+ */
+export function curValue(passedValue: Request): Combination {
   return serviceCombinations([passedValue.name], passedValue.earning);
 }
 
-/* returns combination with earnings updated based on all the earnings of the requests in the combination */
+/**
+ * returns combination with earnings updated based on all the earnings of the requests in the combination
+ * @param passedSequence the sequence of customers being served
+ * @param curEarning earning from the current request
+ */
 export function probableCombinations(
-  passedSequence: combinations,
+  passedSequence: Combination,
   curEarning: number
-): combinations {
+): Combination {
   return passedSequence.names.length === 1
     ? serviceCombinations(passedSequence.names, passedSequence.totalEarning)
     : serviceCombinations(
@@ -88,23 +136,29 @@ export function probableCombinations(
       );
 }
 
-/* returns the highest earning combination */
+/**
+ * returns the highest earning combination 
+ * @param passedCombinations the list of combinations in which customers can be served
+ */
 export function highestEarningCombination(
-  passedCombinations: readonly combinations[]
-): combinations {
+  passedCombinations: readonly Combination[]
+): Combination {
   return passedCombinations.slice().sort(function(a, b) {
     return b.totalEarning - a.totalEarning;
   })[0];
 }
 
-/* calculates all the possible combinations to serve and returns the one with the highest earnings */
-export function mostProfitable(entries: readonly requests[]): combinations {
+/**
+ * calculates all the possible combinations to serve and returns the one with the highest earnings 
+ * @param entries a list of customer requests
+ */
+export function mostProfitable(entries: readonly Request[]): Combination {
   /* gets all the possible sequences in which customers can be serverd */
-  const earnings = entries.map(function(value: requests): combinations {
+  const earnings = entries.map(function(value: Request): Combination {
     /* finds all the entries eligible to be run after the passed entry */
     const eligibleEntries = suitableEntries(entries, value);
     /* gets the highest earning sequence with passed entry as the first order */
-    const sequence: combinations = emptyEntries(eligibleEntries)
+    const sequence: Combination = emptyEntries(eligibleEntries)
       ? curValue(value)
       : probableChildEntries(eligibleEntries, value.name);
     /* returns the list of customers and combined earning for sequence */
@@ -114,13 +168,14 @@ export function mostProfitable(entries: readonly requests[]): combinations {
   return highestEarningCombination(earnings);
 }
 
-/*
+/**
  * converts numeric strings into numbers and checks for validity (4 columns with column 2-4 numeric)
  * has side effect if an error is encountered here
+ * @param entries a 2D list of strings with raw customer requests
  */
 export function cleanData(
   entries: readonly (readonly string[])[]
-): readonly requests[] {
+): readonly Request[] {
   return entries.map(function(value: readonly string[]) {
     // eslint-disable-next-line functional/no-expression-statement
     value.length !== 4 &&
@@ -151,10 +206,13 @@ export function cleanData(
   });
 }
 
-/* holy grail of this file, calculates the most profitable flight plan from raw requests */
+/**
+ * main function of this file, calculates the most profitable flight plan from raw requests
+ * @param givenEntries a list of raw customer requests as unprocessed 2D string array
+ */
 export function acceptedRequests(
   givenEntries: readonly (readonly string[])[]
-): combinations {
+): Combination {
   const chosenSequence = mostProfitable(cleanData(givenEntries));
   return serviceCombinations(
     chosenSequence.names.slice().reverse(),

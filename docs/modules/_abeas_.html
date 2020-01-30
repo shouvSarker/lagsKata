@@ -73,24 +73,24 @@
 						<section class="tsd-index-section ">
 							<h3>Type aliases</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-type-alias tsd-parent-kind-external-module"><a href="_abeas_.html#combinations" class="tsd-kind-icon">combinations</a></li>
-								<li class="tsd-kind-type-alias tsd-parent-kind-external-module"><a href="_abeas_.html#requests" class="tsd-kind-icon">requests</a></li>
+								<li class="tsd-kind-type-alias tsd-parent-kind-external-module"><a href="_abeas_.html#combination" class="tsd-kind-icon">Combination</a></li>
+								<li class="tsd-kind-type-alias tsd-parent-kind-external-module"><a href="_abeas_.html#request" class="tsd-kind-icon">Request</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Functions</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_abeas_.html#acceptedrequests" class="tsd-kind-icon">accepted<wbr>Requests</a></li>
-								<li class="tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported"><a href="_abeas_.html#checkentries" class="tsd-kind-icon">check<wbr>Entries</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_abeas_.html#cleandata" class="tsd-kind-icon">clean<wbr>Data</a></li>
-								<li class="tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported"><a href="_abeas_.html#curvalue" class="tsd-kind-icon">cur<wbr>Value</a></li>
-								<li class="tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported"><a href="_abeas_.html#findcomb" class="tsd-kind-icon">find<wbr>Comb</a></li>
-								<li class="tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported"><a href="_abeas_.html#findentries" class="tsd-kind-icon">find<wbr>Entries</a></li>
-								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_abeas_.html#generatecombinations" class="tsd-kind-icon">generate<wbr>Combinations</a></li>
-								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_abeas_.html#generaterequests" class="tsd-kind-icon">generate<wbr>Requests</a></li>
-								<li class="tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported"><a href="_abeas_.html#getearnings" class="tsd-kind-icon">get<wbr>Earnings</a></li>
-								<li class="tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported"><a href="_abeas_.html#gethighest" class="tsd-kind-icon">get<wbr>Highest</a></li>
-								<li class="tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported"><a href="_abeas_.html#processentries" class="tsd-kind-icon">process<wbr>Entries</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_abeas_.html#curvalue" class="tsd-kind-icon">cur<wbr>Value</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_abeas_.html#customerrequests" class="tsd-kind-icon">customer<wbr>Requests</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_abeas_.html#emptyentries" class="tsd-kind-icon">empty<wbr>Entries</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_abeas_.html#highestearningcombination" class="tsd-kind-icon">highest<wbr>Earning<wbr>Combination</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_abeas_.html#mostprofitable" class="tsd-kind-icon">most<wbr>Profitable</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported"><a href="_abeas_.html#probablechildentries" class="tsd-kind-icon">probable<wbr>Child<wbr>Entries</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_abeas_.html#probablecombinations" class="tsd-kind-icon">probable<wbr>Combinations</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_abeas_.html#servicecombinations" class="tsd-kind-icon">service<wbr>Combinations</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_abeas_.html#suitableentries" class="tsd-kind-icon">suitable<wbr>Entries</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported"><a href="_abeas_.html#throwerror" class="tsd-kind-icon">throw<wbr>Error</a></li>
 							</ul>
 						</section>
@@ -100,49 +100,89 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Type aliases</h2>
 				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-external-module">
-					<a name="combinations" class="tsd-anchor"></a>
-					<h3>combinations</h3>
-					<div class="tsd-signature tsd-kind-icon">combinations<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{ </span>names<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">; </span>totalEarning<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> }</span></div>
+					<a name="combination" class="tsd-anchor"></a>
+					<h3>Combination</h3>
+					<div class="tsd-signature tsd-kind-icon">Combination<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{ </span>names<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">keyof </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">; </span>totalEarning<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> }</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/sarker1999/lagsKata/blob/b67eddb/src/abeas.ts#L13">abeas.ts:13</a></li>
+							<li>Defined in <a href="https://github.com/sarker1999/lagsKata/blob/40a87d4/src/abeas.ts#L23">abeas.ts:23</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>This defines a combination of flights that can be run after one another and total earnings from them</p>
+						</div>
+					</div>
 					<div class="tsd-type-declaration">
 						<h4>Type declaration</h4>
 						<ul class="tsd-parameters">
 							<li class="tsd-parameter">
-								<h5>names<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h5>
+								<h5>names<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">keyof </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<div class="lead">
+										<p>names of the persons/companies requesting a flight</p>
+									</div>
+								</div>
 							</li>
 							<li class="tsd-parameter">
 								<h5>total<wbr>Earning<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<div class="lead">
+										<p>total money earned from this sequence of trips</p>
+									</div>
+								</div>
 							</li>
 						</ul>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-external-module">
-					<a name="requests" class="tsd-anchor"></a>
-					<h3>requests</h3>
-					<div class="tsd-signature tsd-kind-icon">requests<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{ </span>duration<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>earning<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>name<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>start<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> }</span></div>
+					<a name="request" class="tsd-anchor"></a>
+					<h3>Request</h3>
+					<div class="tsd-signature tsd-kind-icon">Request<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{ </span>duration<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>earning<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>name<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>start<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> }</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/sarker1999/lagsKata/blob/b67eddb/src/abeas.ts#L6">abeas.ts:6</a></li>
+							<li>Defined in <a href="https://github.com/sarker1999/lagsKata/blob/40a87d4/src/abeas.ts#L9">abeas.ts:9</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>This defines a customer request type for a flight</p>
+						</div>
+					</div>
 					<div class="tsd-type-declaration">
 						<h4>Type declaration</h4>
 						<ul class="tsd-parameters">
 							<li class="tsd-parameter">
 								<h5>duration<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<div class="lead">
+										<p>total time required for the flight to be completed</p>
+									</div>
+								</div>
 							</li>
 							<li class="tsd-parameter">
 								<h5>earning<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<div class="lead">
+										<p>earnings from that flight</p>
+									</div>
+								</div>
 							</li>
 							<li class="tsd-parameter">
 								<h5>name<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<div class="lead">
+										<p>name of the person/company requesting a flight</p>
+									</div>
+								</div>
 							</li>
 							<li class="tsd-parameter">
 								<h5>start<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<div class="lead">
+										<p>start time for the flight</p>
+									</div>
+								</div>
 							</li>
 						</ul>
 					</div>
@@ -154,45 +194,30 @@
 					<a name="acceptedrequests" class="tsd-anchor"></a>
 					<h3>accepted<wbr>Requests</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
-						<li class="tsd-signature tsd-kind-icon">accepted<wbr>Requests<span class="tsd-signature-symbol">(</span>givenEntries<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_abeas_.html#combinations" class="tsd-signature-type">combinations</a></li>
+						<li class="tsd-signature tsd-kind-icon">accepted<wbr>Requests<span class="tsd-signature-symbol">(</span>givenEntries<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">keyof </span><span class="tsd-signature-type">ReadonlyArray</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_abeas_.html#combination" class="tsd-signature-type">Combination</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/sarker1999/lagsKata/blob/b67eddb/src/abeas.ts#L93">abeas.ts:93</a></li>
+									<li>Defined in <a href="https://github.com/sarker1999/lagsKata/blob/40a87d4/src/abeas.ts#L213">abeas.ts:213</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>main function of this file, calculates the most profitable flight plan from raw requests</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>givenEntries: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">[]</span></h5>
+									<h5>givenEntries: <span class="tsd-signature-symbol">keyof </span><span class="tsd-signature-type">ReadonlyArray</span><span class="tsd-signature-symbol">[]</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>a list of raw customer requests as unprocessed 2D string array</p>
+									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="_abeas_.html#combinations" class="tsd-signature-type">combinations</a></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
-					<a name="checkentries" class="tsd-anchor"></a>
-					<h3>check<wbr>Entries</h3>
-					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
-						<li class="tsd-signature tsd-kind-icon">check<wbr>Entries<span class="tsd-signature-symbol">(</span>passedEntries<span class="tsd-signature-symbol">: </span><a href="_abeas_.html#requests" class="tsd-signature-type">requests</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/sarker1999/lagsKata/blob/b67eddb/src/abeas.ts#L36">abeas.ts:36</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>passedEntries: <a href="_abeas_.html#requests" class="tsd-signature-type">requests</a><span class="tsd-signature-symbol">[]</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+							<h4 class="tsd-returns-title">Returns <a href="_abeas_.html#combination" class="tsd-signature-type">Combination</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -200,249 +225,352 @@
 					<a name="cleandata" class="tsd-anchor"></a>
 					<h3>clean<wbr>Data</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
-						<li class="tsd-signature tsd-kind-icon">clean<wbr>Data<span class="tsd-signature-symbol">(</span>entries<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_abeas_.html#requests" class="tsd-signature-type">requests</a><span class="tsd-signature-symbol">[]</span></li>
+						<li class="tsd-signature tsd-kind-icon">clean<wbr>Data<span class="tsd-signature-symbol">(</span>entries<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">keyof </span><span class="tsd-signature-type">ReadonlyArray</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">keyof </span><a href="_abeas_.html#request" class="tsd-signature-type">Request</a><span class="tsd-signature-symbol">[]</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/sarker1999/lagsKata/blob/b67eddb/src/abeas.ts#L79">abeas.ts:79</a></li>
+									<li>Defined in <a href="https://github.com/sarker1999/lagsKata/blob/40a87d4/src/abeas.ts#L176">abeas.ts:176</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>converts numeric strings into numbers and checks for validity (4 columns with column 2-4 numeric)
+									has side effect if an error is encountered here</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>entries: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">[]</span></h5>
+									<h5>entries: <span class="tsd-signature-symbol">keyof </span><span class="tsd-signature-type">ReadonlyArray</span><span class="tsd-signature-symbol">[]</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>a 2D list of strings with raw customer requests</p>
+									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="_abeas_.html#requests" class="tsd-signature-type">requests</a><span class="tsd-signature-symbol">[]</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-symbol">keyof </span><a href="_abeas_.html#request" class="tsd-signature-type">Request</a><span class="tsd-signature-symbol">[]</span></h4>
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module">
 					<a name="curvalue" class="tsd-anchor"></a>
 					<h3>cur<wbr>Value</h3>
-					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
-						<li class="tsd-signature tsd-kind-icon">cur<wbr>Value<span class="tsd-signature-symbol">(</span>passedValue<span class="tsd-signature-symbol">: </span><a href="_abeas_.html#requests" class="tsd-signature-type">requests</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_abeas_.html#combinations" class="tsd-signature-type">combinations</a></li>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
+						<li class="tsd-signature tsd-kind-icon">cur<wbr>Value<span class="tsd-signature-symbol">(</span>passedValue<span class="tsd-signature-symbol">: </span><a href="_abeas_.html#request" class="tsd-signature-type">Request</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_abeas_.html#combination" class="tsd-signature-type">Combination</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/sarker1999/lagsKata/blob/b67eddb/src/abeas.ts#L48">abeas.ts:48</a></li>
+									<li>Defined in <a href="https://github.com/sarker1999/lagsKata/blob/40a87d4/src/abeas.ts#L118">abeas.ts:118</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>picks out the current customer name, earnings from a request and returns them in a list</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>passedValue: <a href="_abeas_.html#requests" class="tsd-signature-type">requests</a></h5>
+									<h5>passedValue: <a href="_abeas_.html#request" class="tsd-signature-type">Request</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>the request to be processed</p>
+									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="_abeas_.html#combinations" class="tsd-signature-type">combinations</a></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
-					<a name="findcomb" class="tsd-anchor"></a>
-					<h3>find<wbr>Comb</h3>
-					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
-						<li class="tsd-signature tsd-kind-icon">find<wbr>Comb<span class="tsd-signature-symbol">(</span>passedSequence<span class="tsd-signature-symbol">: </span><a href="_abeas_.html#combinations" class="tsd-signature-type">combinations</a>, curEarning<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_abeas_.html#combinations" class="tsd-signature-type">combinations</a></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/sarker1999/lagsKata/blob/b67eddb/src/abeas.ts#L53">abeas.ts:53</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>passedSequence: <a href="_abeas_.html#combinations" class="tsd-signature-type">combinations</a></h5>
-								</li>
-								<li>
-									<h5>curEarning: <span class="tsd-signature-type">number</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="_abeas_.html#combinations" class="tsd-signature-type">combinations</a></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
-					<a name="findentries" class="tsd-anchor"></a>
-					<h3>find<wbr>Entries</h3>
-					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
-						<li class="tsd-signature tsd-kind-icon">find<wbr>Entries<span class="tsd-signature-symbol">(</span>passedEntries<span class="tsd-signature-symbol">: </span><a href="_abeas_.html#requests" class="tsd-signature-type">requests</a><span class="tsd-signature-symbol">[]</span>, value<span class="tsd-signature-symbol">: </span><a href="_abeas_.html#requests" class="tsd-signature-type">requests</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_abeas_.html#requests" class="tsd-signature-type">requests</a><span class="tsd-signature-symbol">[]</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/sarker1999/lagsKata/blob/b67eddb/src/abeas.ts#L31">abeas.ts:31</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>passedEntries: <a href="_abeas_.html#requests" class="tsd-signature-type">requests</a><span class="tsd-signature-symbol">[]</span></h5>
-								</li>
-								<li>
-									<h5>value: <a href="_abeas_.html#requests" class="tsd-signature-type">requests</a></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="_abeas_.html#requests" class="tsd-signature-type">requests</a><span class="tsd-signature-symbol">[]</span></h4>
+							<h4 class="tsd-returns-title">Returns <a href="_abeas_.html#combination" class="tsd-signature-type">Combination</a></h4>
 						</li>
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module">
-					<a name="generatecombinations" class="tsd-anchor"></a>
-					<h3>generate<wbr>Combinations</h3>
+					<a name="customerrequests" class="tsd-anchor"></a>
+					<h3>customer<wbr>Requests</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
-						<li class="tsd-signature tsd-kind-icon">generate<wbr>Combinations<span class="tsd-signature-symbol">(</span>iniNames<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span>, iniTotal<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{ </span>names<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">; </span>totalEarning<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> }</span></li>
+						<li class="tsd-signature tsd-kind-icon">customer<wbr>Requests<span class="tsd-signature-symbol">(</span>iniName<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, iniStart<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, iniDuration<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, iniEarning<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_abeas_.html#request" class="tsd-signature-type">Request</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/sarker1999/lagsKata/blob/b67eddb/src/abeas.ts#L22">abeas.ts:22</a></li>
+									<li>Defined in <a href="https://github.com/sarker1999/lagsKata/blob/40a87d4/src/abeas.ts#L37">abeas.ts:37</a></li>
 								</ul>
 							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>iniNames: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h5>
-								</li>
-								<li>
-									<h5>iniTotal: <span class="tsd-signature-type">number</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-symbol">{ </span>names<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">; </span>totalEarning<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> }</span></h4>
-							<ul class="tsd-parameters">
-								<li class="tsd-parameter">
-									<h5>names<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h5>
-								</li>
-								<li class="tsd-parameter">
-									<h5>total<wbr>Earning<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></h5>
-								</li>
-							</ul>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module">
-					<a name="generaterequests" class="tsd-anchor"></a>
-					<h3>generate<wbr>Requests</h3>
-					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
-						<li class="tsd-signature tsd-kind-icon">generate<wbr>Requests<span class="tsd-signature-symbol">(</span>iniName<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, iniStart<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, iniDuration<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, iniEarning<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{ </span>duration<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>earning<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>name<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>start<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> }</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/sarker1999/lagsKata/blob/b67eddb/src/abeas.ts#L18">abeas.ts:18</a></li>
-								</ul>
-							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>This creates a customer request in a structured format</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>iniName: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>the name of the entity making the request</p>
+									</div>
 								</li>
 								<li>
 									<h5>iniStart: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>start time for the flight</p>
+									</div>
 								</li>
 								<li>
 									<h5>iniDuration: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>total duration of the flight</p>
+									</div>
 								</li>
 								<li>
 									<h5>iniEarning: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>earning from that flight</p>
+									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-symbol">{ </span>duration<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>earning<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>name<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>start<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> }</span></h4>
-							<ul class="tsd-parameters">
-								<li class="tsd-parameter">
-									<h5>duration<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></h5>
-								</li>
-								<li class="tsd-parameter">
-									<h5>earning<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></h5>
-								</li>
-								<li class="tsd-parameter">
-									<h5>name<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
-								</li>
-								<li class="tsd-parameter">
-									<h5>start<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></h5>
-								</li>
-							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="_abeas_.html#request" class="tsd-signature-type">Request</a></h4>
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
-					<a name="getearnings" class="tsd-anchor"></a>
-					<h3>get<wbr>Earnings</h3>
-					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Earnings<span class="tsd-signature-symbol">(</span>entries<span class="tsd-signature-symbol">: </span><a href="_abeas_.html#requests" class="tsd-signature-type">requests</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_abeas_.html#combinations" class="tsd-signature-type">combinations</a></li>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module">
+					<a name="emptyentries" class="tsd-anchor"></a>
+					<h3>empty<wbr>Entries</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
+						<li class="tsd-signature tsd-kind-icon">empty<wbr>Entries<span class="tsd-signature-symbol">(</span>passedEntries<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">keyof </span><a href="_abeas_.html#request" class="tsd-signature-type">Request</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/sarker1999/lagsKata/blob/b67eddb/src/abeas.ts#L63">abeas.ts:63</a></li>
+									<li>Defined in <a href="https://github.com/sarker1999/lagsKata/blob/40a87d4/src/abeas.ts#L90">abeas.ts:90</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>checks if the passed array is empty</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>entries: <a href="_abeas_.html#requests" class="tsd-signature-type">requests</a><span class="tsd-signature-symbol">[]</span></h5>
+									<h5>passedEntries: <span class="tsd-signature-symbol">keyof </span><a href="_abeas_.html#request" class="tsd-signature-type">Request</a><span class="tsd-signature-symbol">[]</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>the list of entries whose emptiness will be determined</p>
+									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="_abeas_.html#combinations" class="tsd-signature-type">combinations</a></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
-					<a name="gethighest" class="tsd-anchor"></a>
-					<h3>get<wbr>Highest</h3>
-					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Highest<span class="tsd-signature-symbol">(</span>combs<span class="tsd-signature-symbol">: </span><a href="_abeas_.html#combinations" class="tsd-signature-type">combinations</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_abeas_.html#combinations" class="tsd-signature-type">combinations</a></li>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module">
+					<a name="highestearningcombination" class="tsd-anchor"></a>
+					<h3>highest<wbr>Earning<wbr>Combination</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
+						<li class="tsd-signature tsd-kind-icon">highest<wbr>Earning<wbr>Combination<span class="tsd-signature-symbol">(</span>passedCombinations<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">keyof </span><a href="_abeas_.html#combination" class="tsd-signature-type">Combination</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_abeas_.html#combination" class="tsd-signature-type">Combination</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/sarker1999/lagsKata/blob/b67eddb/src/abeas.ts#L58">abeas.ts:58</a></li>
+									<li>Defined in <a href="https://github.com/sarker1999/lagsKata/blob/40a87d4/src/abeas.ts#L143">abeas.ts:143</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>returns the highest earning combination</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>combs: <a href="_abeas_.html#combinations" class="tsd-signature-type">combinations</a><span class="tsd-signature-symbol">[]</span></h5>
+									<h5>passedCombinations: <span class="tsd-signature-symbol">keyof </span><a href="_abeas_.html#combination" class="tsd-signature-type">Combination</a><span class="tsd-signature-symbol">[]</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>the list of combinations in which customers can be served</p>
+									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="_abeas_.html#combinations" class="tsd-signature-type">combinations</a></h4>
+							<h4 class="tsd-returns-title">Returns <a href="_abeas_.html#combination" class="tsd-signature-type">Combination</a></h4>
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
-					<a name="processentries" class="tsd-anchor"></a>
-					<h3>process<wbr>Entries</h3>
-					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
-						<li class="tsd-signature tsd-kind-icon">process<wbr>Entries<span class="tsd-signature-symbol">(</span>passedEntries<span class="tsd-signature-symbol">: </span><a href="_abeas_.html#requests" class="tsd-signature-type">requests</a><span class="tsd-signature-symbol">[]</span>, curName<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_abeas_.html#combinations" class="tsd-signature-type">combinations</a></li>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module">
+					<a name="mostprofitable" class="tsd-anchor"></a>
+					<h3>most<wbr>Profitable</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
+						<li class="tsd-signature tsd-kind-icon">most<wbr>Profitable<span class="tsd-signature-symbol">(</span>entries<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">keyof </span><a href="_abeas_.html#request" class="tsd-signature-type">Request</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_abeas_.html#combination" class="tsd-signature-type">Combination</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/sarker1999/lagsKata/blob/b67eddb/src/abeas.ts#L41">abeas.ts:41</a></li>
+									<li>Defined in <a href="https://github.com/sarker1999/lagsKata/blob/40a87d4/src/abeas.ts#L155">abeas.ts:155</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>calculates all the possible combinations to serve and returns the one with the highest earnings</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>passedEntries: <a href="_abeas_.html#requests" class="tsd-signature-type">requests</a><span class="tsd-signature-symbol">[]</span></h5>
+									<h5>entries: <span class="tsd-signature-symbol">keyof </span><a href="_abeas_.html#request" class="tsd-signature-type">Request</a><span class="tsd-signature-symbol">[]</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>a list of customer requests</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="_abeas_.html#combination" class="tsd-signature-type">Combination</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
+					<a name="probablechildentries" class="tsd-anchor"></a>
+					<h3>probable<wbr>Child<wbr>Entries</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">probable<wbr>Child<wbr>Entries<span class="tsd-signature-symbol">(</span>passedEntries<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">keyof </span><a href="_abeas_.html#request" class="tsd-signature-type">Request</a><span class="tsd-signature-symbol">[]</span>, curName<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_abeas_.html#combination" class="tsd-signature-type">Combination</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/sarker1999/lagsKata/blob/40a87d4/src/abeas.ts#L99">abeas.ts:99</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>processes the array to find all possible entry combinations that can be served subsequently</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>passedEntries: <span class="tsd-signature-symbol">keyof </span><a href="_abeas_.html#request" class="tsd-signature-type">Request</a><span class="tsd-signature-symbol">[]</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>the list of entries from which probable entries are going to be identified</p>
+									</div>
 								</li>
 								<li>
 									<h5>curName: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>the name of the current entry whose subsequent entries are being tested</p>
+									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="_abeas_.html#combinations" class="tsd-signature-type">combinations</a></h4>
+							<h4 class="tsd-returns-title">Returns <a href="_abeas_.html#combination" class="tsd-signature-type">Combination</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module">
+					<a name="probablecombinations" class="tsd-anchor"></a>
+					<h3>probable<wbr>Combinations</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
+						<li class="tsd-signature tsd-kind-icon">probable<wbr>Combinations<span class="tsd-signature-symbol">(</span>passedSequence<span class="tsd-signature-symbol">: </span><a href="_abeas_.html#combination" class="tsd-signature-type">Combination</a>, curEarning<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_abeas_.html#combination" class="tsd-signature-type">Combination</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/sarker1999/lagsKata/blob/40a87d4/src/abeas.ts#L127">abeas.ts:127</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>returns combination with earnings updated based on all the earnings of the requests in the combination</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>passedSequence: <a href="_abeas_.html#combination" class="tsd-signature-type">Combination</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>the sequence of customers being served</p>
+									</div>
+								</li>
+								<li>
+									<h5>curEarning: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>earning from the current request</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="_abeas_.html#combination" class="tsd-signature-type">Combination</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module">
+					<a name="servicecombinations" class="tsd-anchor"></a>
+					<h3>service<wbr>Combinations</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
+						<li class="tsd-signature tsd-kind-icon">service<wbr>Combinations<span class="tsd-signature-symbol">(</span>iniNames<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">keyof </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span>, iniTotal<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_abeas_.html#combination" class="tsd-signature-type">Combination</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/sarker1999/lagsKata/blob/40a87d4/src/abeas.ts#L56">abeas.ts:56</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>This creates a combination of flights that be run subsequently</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>iniNames: <span class="tsd-signature-symbol">keyof </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>names of the flights that can be served subsequently</p>
+									</div>
+								</li>
+								<li>
+									<h5>iniTotal: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>total earnings from those flights</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="_abeas_.html#combination" class="tsd-signature-type">Combination</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module">
+					<a name="suitableentries" class="tsd-anchor"></a>
+					<h3>suitable<wbr>Entries</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
+						<li class="tsd-signature tsd-kind-icon">suitable<wbr>Entries<span class="tsd-signature-symbol">(</span>passedEntries<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">keyof </span><a href="_abeas_.html#request" class="tsd-signature-type">Request</a><span class="tsd-signature-symbol">[]</span>, value<span class="tsd-signature-symbol">: </span><a href="_abeas_.html#request" class="tsd-signature-type">Request</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">keyof </span><a href="_abeas_.html#request" class="tsd-signature-type">Request</a><span class="tsd-signature-symbol">[]</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/sarker1999/lagsKata/blob/40a87d4/src/abeas.ts#L77">abeas.ts:77</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>finds the entries whose start time is greater than the given value&#39;s start time and duration combined (i.e. can be run after given value)</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>passedEntries: <span class="tsd-signature-symbol">keyof </span><a href="_abeas_.html#request" class="tsd-signature-type">Request</a><span class="tsd-signature-symbol">[]</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>the list of entries from which suitable entries will be identified</p>
+									</div>
+								</li>
+								<li>
+									<h5>value: <a href="_abeas_.html#request" class="tsd-signature-type">Request</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>the request from which serving should begin</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-symbol">keyof </span><a href="_abeas_.html#request" class="tsd-signature-type">Request</a><span class="tsd-signature-symbol">[]</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -456,13 +584,21 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/sarker1999/lagsKata/blob/b67eddb/src/abeas.ts#L26">abeas.ts:26</a></li>
+									<li>Defined in <a href="https://github.com/sarker1999/lagsKata/blob/40a87d4/src/abeas.ts#L68">abeas.ts:68</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Throws an error according to the passed message</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>message: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>the error message to be thrown</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -485,43 +621,43 @@
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
 					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module">
-						<a href="_abeas_.html#combinations" class="tsd-kind-icon">combinations</a>
+						<a href="_abeas_.html#combination" class="tsd-kind-icon">Combination</a>
 					</li>
 					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module">
-						<a href="_abeas_.html#requests" class="tsd-kind-icon">requests</a>
+						<a href="_abeas_.html#request" class="tsd-kind-icon">Request</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-external-module">
 						<a href="_abeas_.html#acceptedrequests" class="tsd-kind-icon">accepted<wbr>Requests</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
-						<a href="_abeas_.html#checkentries" class="tsd-kind-icon">check<wbr>Entries</a>
-					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-external-module">
 						<a href="_abeas_.html#cleandata" class="tsd-kind-icon">clean<wbr>Data</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
+					<li class=" tsd-kind-function tsd-parent-kind-external-module">
 						<a href="_abeas_.html#curvalue" class="tsd-kind-icon">cur<wbr>Value</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
-						<a href="_abeas_.html#findcomb" class="tsd-kind-icon">find<wbr>Comb</a>
-					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
-						<a href="_abeas_.html#findentries" class="tsd-kind-icon">find<wbr>Entries</a>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module">
+						<a href="_abeas_.html#customerrequests" class="tsd-kind-icon">customer<wbr>Requests</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="_abeas_.html#generatecombinations" class="tsd-kind-icon">generate<wbr>Combinations</a>
+						<a href="_abeas_.html#emptyentries" class="tsd-kind-icon">empty<wbr>Entries</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="_abeas_.html#generaterequests" class="tsd-kind-icon">generate<wbr>Requests</a>
+						<a href="_abeas_.html#highestearningcombination" class="tsd-kind-icon">highest<wbr>Earning<wbr>Combination</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module">
+						<a href="_abeas_.html#mostprofitable" class="tsd-kind-icon">most<wbr>Profitable</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
-						<a href="_abeas_.html#getearnings" class="tsd-kind-icon">get<wbr>Earnings</a>
+						<a href="_abeas_.html#probablechildentries" class="tsd-kind-icon">probable<wbr>Child<wbr>Entries</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
-						<a href="_abeas_.html#gethighest" class="tsd-kind-icon">get<wbr>Highest</a>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module">
+						<a href="_abeas_.html#probablecombinations" class="tsd-kind-icon">probable<wbr>Combinations</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
-						<a href="_abeas_.html#processentries" class="tsd-kind-icon">process<wbr>Entries</a>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module">
+						<a href="_abeas_.html#servicecombinations" class="tsd-kind-icon">service<wbr>Combinations</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module">
+						<a href="_abeas_.html#suitableentries" class="tsd-kind-icon">suitable<wbr>Entries</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
 						<a href="_abeas_.html#throwerror" class="tsd-kind-icon">throw<wbr>Error</a>
