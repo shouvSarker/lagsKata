@@ -81,7 +81,7 @@ test("Should return all the requests that can be run after the specified value o
         expect(result.length).toBeLessThanOrEqual(
           requestList.length - valueIndex
         );
-        // then I expect start time of every member of the array to be greater than given value's start time and duration combined
+        // then I expect start time of every member of the array to be greater than given value's start time and duration combined together
         result.map(function(resultValue) {
           expect(resultValue.start).toBeGreaterThan(
             value.start + value.duration
