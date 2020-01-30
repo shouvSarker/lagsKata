@@ -223,7 +223,7 @@ test("Should return the top combination whose earning should be greater than or 
   });
 });
 
-test("Should throw is an error saing it expected four column, but got something else", () => {
+test("Should throw is an error saing it expected four column, but got something else or data is not a number in column 2-4", () => {
   const testSizes = Array.from(Array(10).keys()).slice(1);
   testSizes.map(function(testSize) {
     fc.assert(
