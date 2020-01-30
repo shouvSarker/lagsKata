@@ -1,6 +1,5 @@
 /* eslint-disable functional/no-expression-statement */
 
-import * as fs from "fs";
 import * as fc from "fast-check";
 import * as abeasFile from "../src/abeas";
 
@@ -14,7 +13,7 @@ test("Should return an object with a name, start, duration and earning key equal
       fc.integer(),
       (customerName, start, duration, earning) => {
         // when I convert them to a request object
-        const result: abeasFile.Request = abeasFile.customerRequests(
+        const result: abeasFile.Request = abeasFile.customerRequest(
           customerName,
           start,
           duration,
@@ -38,7 +37,7 @@ test("Should return an object with names, totalEarning key equal to the params",
       fc.integer(),
       (customerNames, customerEarning) => {
         // when I convert them to a combination object
-        const result: abeasFile.Combination = abeasFile.serviceCombinations(
+        const result: abeasFile.Combination = abeasFile.serviceCombination(
           customerNames,
           customerEarning
         );
@@ -62,7 +61,7 @@ test("Should return all the requests that can be run after the specified value o
         const requestList: readonly abeasFile.Request[] = customerNames.map(
           function(name) {
             const index = customerNames.indexOf(name);
-            return abeasFile.customerRequests(
+            return abeasFile.customerRequest(
               name,
               numberDetails[3 * index],
               numberDetails[3 * index + 1],
@@ -92,7 +91,7 @@ test("Should return all the requests that can be run after the specified value o
   );
 });
 
-test("Should return false as the provided requests list is not empty", () => {
+test("Should return false as the provided list is not empty", () => {
   const testSizes = Array.from(Array(10).keys()).slice(1);
   testSizes.map(function(testSize) {
     fc.assert(
@@ -104,7 +103,7 @@ test("Should return false as the provided requests list is not empty", () => {
           const requestList: readonly abeasFile.Request[] = customerNames.map(
             function(name) {
               const index = customerNames.indexOf(name);
-              return abeasFile.customerRequests(
+              return abeasFile.customerRequest(
                 name,
                 numberDetails[3 * index],
                 numberDetails[3 * index + 1],
@@ -122,13 +121,25 @@ test("Should return false as the provided requests list is not empty", () => {
   });
 });
 
-test("Should return false as the provided requests list is empty", () => {
+test("Should return true as the provided list is empty", () => {
   // given an empty array
-  const emptyList: readonly abeasFile.Request[] = [];
+  const emptyList: ArrayLike<unknown> = [];
   // when I calculate if the array is empty
   const resultEmpty: boolean = abeasFile.emptyEntries(emptyList);
   // then I expect it to be true
   expect(resultEmpty).toBe(true);
+  // given an empty strings array of arrays
+  const emptyString: string[][] = [];
+  // when I calculate if it is empty
+  const stringEmpty: boolean = abeasFile.emptyEntries(emptyString);
+  // then I expect it to be true
+  expect(stringEmpty).toBe(true);
+  // given an empty requests array
+  const emptyRequests: abeasFile.Request[] = [];
+  // when I calculate if the array is empty
+  const requestEmpty: boolean = abeasFile.emptyEntries(emptyRequests);
+  // then I expect it to be true
+  expect(requestEmpty).toBe(true);
 });
 
 test("Should return a combination (current value) from a request", () => {
@@ -138,7 +149,7 @@ test("Should return a combination (current value) from a request", () => {
       fc.array(fc.integer(), 3, 3),
       (customerName, numberDetails) => {
         // given a customer request
-        const passedRequest: abeasFile.Request = abeasFile.customerRequests(
+        const passedRequest: abeasFile.Request = abeasFile.customerRequest(
           customerName,
           numberDetails[0],
           numberDetails[1],
@@ -166,7 +177,7 @@ test("Should return a combination unchanged if there is only one name, added wit
       fc.integer(),
       (names, singleName, earning, currentEarning) => {
         // given a combination of names  and total earning
-        const passedCombination: abeasFile.Combination = abeasFile.serviceCombinations(
+        const passedCombination: abeasFile.Combination = abeasFile.serviceCombination(
           names,
           earning
         );
@@ -180,7 +191,7 @@ test("Should return a combination unchanged if there is only one name, added wit
         // and then I expect the earning to be added with passed earning
         expect(curCombination.totalEarning).toBe(earning + currentEarning);
         // given a combination of one single name and total earning
-        const singleCombination: abeasFile.Combination = abeasFile.serviceCombinations(
+        const singleCombination: abeasFile.Combination = abeasFile.serviceCombination(
           [singleName],
           earning
         );
@@ -210,7 +221,7 @@ test("Should return the top combination whose earning should be greater than or 
           const passedCombination: readonly abeasFile.Combination[] = names.map(
             function(nameList) {
               const index = names.indexOf(nameList);
-              return abeasFile.serviceCombinations(nameList, earnings[index]);
+              return abeasFile.serviceCombination(nameList, earnings[index]);
             }
           );
           const topCombination: abeasFile.Combination = abeasFile.highestEarningCombination(
@@ -304,18 +315,13 @@ test("Should throw is an error saing it expected four column, but got something 
   });
 });
 
-test("MainFunction", () => {
-  const entries = fs
-    .readFileSync("./tests/testCases/testCase1.txt", "utf8")
-    .split("\n")
-    .map(function(row) {
-      return row.split(" ");
-    });
+test("Should return the expected (highest earning serving sequence) set of combination as the final product provided an array of array of strings as input", () => {
+  const entries: string[][] = [['AF514', '0', '5', '10'], ['CO5', '7', '7', '13'], ['AF515', '5', '9', '7'], ['BA01', '6', '9', '14'], ['CApp', '18', '2', '16']]
   const result = abeasFile.acceptedRequests(entries);
-  const answers: abeasFile.Combination = {
+  const expected: abeasFile.Combination = {
     names: ["AF514", "BA01", "CApp"],
     totalEarning: 40
   };
-  expect(result.names).toStrictEqual(answers.names);
-  expect(result.totalEarning).toBe(answers.totalEarning);
+  expect(result.names).toStrictEqual(expected.names);
+  expect(result.totalEarning).toBe(expected.totalEarning);
 });

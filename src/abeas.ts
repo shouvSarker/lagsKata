@@ -34,7 +34,7 @@ export type Combination = {
  * @param iniDuration total duration of the flight
  * @param iniEarning earning from that flight
  */
-export function customerRequests(
+export function customerRequest(
   iniName: string,
   iniStart: number,
   iniDuration: number,
@@ -53,7 +53,7 @@ export function customerRequests(
  * @param iniNames names of the flights that can be served subsequently
  * @param iniTotal total earnings from those flights
  */
-export function serviceCombinations(
+export function serviceCombination(
   iniNames: readonly string[],
   iniTotal: number
 ): Combination {
@@ -65,7 +65,7 @@ export function serviceCombinations(
  * @param message the error message to be thrown
  */
 // eslint-disable-next-line functional/no-return-void
-export function throwError(message: string): void {
+export function throwError(message: string): never {
   throw new Error(message); // eslint-disable-line functional/no-throw-statement
 }
 
@@ -88,7 +88,7 @@ export function suitableEntries(
  * @param passedEntries the list of entries whose emptiness will be determined
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function emptyEntries(passedEntries: any): boolean {
+export function emptyEntries(passedEntries: ArrayLike<unknown>): boolean {
   return !(passedEntries !== "undefined" && passedEntries.length > 0)
     ? true
     : false;
@@ -108,7 +108,7 @@ function probableChildEntries(
    */
   // eslint-disable-next-line @typescript-eslint/no-use-before-define
   const childEarnings: Combination = mostProfitable(passedEntries);
-  return serviceCombinations(
+  return serviceCombination(
     childEarnings.names.concat(curName),
     childEarnings.totalEarning
   );
@@ -119,7 +119,7 @@ function probableChildEntries(
  * @param passedValue the request to be processed
  */
 export function curValue(passedValue: Request): Combination {
-  return serviceCombinations([passedValue.name], passedValue.earning);
+  return serviceCombination([passedValue.name], passedValue.earning);
 }
 
 /**
@@ -132,8 +132,8 @@ export function probableCombinations(
   curEarning: number
 ): Combination {
   return passedSequence.names.length === 1
-    ? serviceCombinations(passedSequence.names, passedSequence.totalEarning)
-    : serviceCombinations(
+    ? serviceCombination(passedSequence.names, passedSequence.totalEarning)
+    : serviceCombination(
         passedSequence.names,
         curEarning + passedSequence.totalEarning
       );
@@ -212,7 +212,7 @@ export function cleanData(
           );
       return +member;
     });
-    return customerRequests(
+    return customerRequest(
       value[0],
       cleanedValue[0],
       cleanedValue[1],
@@ -229,7 +229,7 @@ export function acceptedRequests(
   givenEntries: readonly (readonly string[])[]
 ): Combination {
   const chosenSequence = mostProfitable(cleanData(givenEntries));
-  return serviceCombinations(
+  return serviceCombination(
     chosenSequence.names.slice().reverse(),
     chosenSequence.totalEarning
   );
