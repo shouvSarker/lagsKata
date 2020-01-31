@@ -99,7 +99,7 @@ export function emptyEntries(passedEntries: ArrayLike<unknown>): boolean {
  * @param passedEntries the list of entries from which probable entries are going to be identified
  * @param curName the name of the current entry whose subsequent entries are being tested
  */
-function probableChildEntries(
+export function probableChildEntries(
   passedEntries: readonly Request[],
   curName: string
 ): Combination {

@@ -329,6 +329,22 @@ test("Should return the expected (highest earning serving sequence) set of combi
   expect(highestEarning.totalEarning).toBe(expected.totalEarning);
 })
 
+test("Should return a list of probable most profitable child entries with current name added to the list of strings", () => {
+    // given a requests array
+    const suppliedRequests: abeasFile.Request[] = [abeasFile.customerRequest('AF514', 0, 5, 10), abeasFile.customerRequest('CO5', 7, 7, 13), abeasFile.customerRequest('BA01', 6, 9, 14)];
+    // and a current name
+    const name: string = "newName"
+    // when I calculate the list of probable child entries
+    const probableChildEntries: abeasFile.Combination = abeasFile.probableChildEntries(suppliedRequests, name);
+    // then I expect the value to be equal to the expected combination
+    const expected: abeasFile.Combination = {
+      names: ['BA01', 'AF514', name],
+      totalEarning: 24
+    };
+    expect(probableChildEntries.names).toStrictEqual(expected.names);
+    expect(probableChildEntries.totalEarning).toBe(expected.totalEarning);
+})
+
 test("Should return the expected (highest earning serving sequence) set of combinations as the final product provided an array of array of strings as input", () => {
   // given an array of arrays of strings
   const entries: string[][] = [['AF514', '0', '5', '10'], ['CO5', '7', '7', '13'], ['AF515', '5', '9', '7'], ['BA01', '6', '9', '14'], ['CApp', '18', '2', '16']]
