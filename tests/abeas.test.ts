@@ -315,9 +315,26 @@ test("Should throw is an error saing it expected four column, but got something 
   });
 });
 
-test("Should return the expected (highest earning serving sequence) set of combination as the final product provided an array of array of strings as input", () => {
+test("Should return the expected (highest earning serving sequence) set of combinations as the final product provided a list of requests as input", () => {
+  // given a requests array
+  const suppliedRequests: abeasFile.Request[] = [abeasFile.customerRequest('AF514', 0, 5, 10), abeasFile.customerRequest('CO5', 7, 7, 13), abeasFile.customerRequest('BA01', 6, 9, 14)];
+  // when I calculate the list of highest earning combinations
+  const highestEarning: abeasFile.Combination = abeasFile.mostProfitable(suppliedRequests);
+  // then I expect the value to be equal to the expected combination
+  const expected: abeasFile.Combination = {
+    names: ['BA01', 'AF514'],
+    totalEarning: 24
+  };
+  expect(highestEarning.names).toStrictEqual(expected.names);
+  expect(highestEarning.totalEarning).toBe(expected.totalEarning);
+})
+
+test("Should return the expected (highest earning serving sequence) set of combinations as the final product provided an array of array of strings as input", () => {
+  // given an array of arrays of strings
   const entries: string[][] = [['AF514', '0', '5', '10'], ['CO5', '7', '7', '13'], ['AF515', '5', '9', '7'], ['BA01', '6', '9', '14'], ['CApp', '18', '2', '16']]
+  // when I calculate the list of accepted request
   const result = abeasFile.acceptedRequests(entries);
+  // then it should be equal to the expected combination
   const expected: abeasFile.Combination = {
     names: ["AF514", "BA01", "CApp"],
     totalEarning: 40
