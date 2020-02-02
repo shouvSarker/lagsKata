@@ -6,10 +6,12 @@ import * as abeasFile from "../src/abeas";
 // default testSize, the larger it is, the longer it takes as it defines the max size of arrays and tuples 
 const testSize: number = 100;
 
+// creates a tuple of raw data like a request
 function arbRequest(mustNotEmpty: boolean = false): fc.Arbitrary<[string, number, number, number]> {
   return mustNotEmpty ? fc.nat(testSize).chain(length => fc.tuple(fc.string(1, length + 1), fc.integer(), fc.integer(), fc.integer())) : fc.tuple(fc.string(), fc.integer(), fc.integer(), fc.integer());
 }
 
+// creates a tuple of raw data like a combination
 function arbCombination(mustSingleName: boolean = false): fc.Arbitrary<[string[], number]> {
   return mustSingleName ? fc.tuple(fc.array(fc.string(), 1, 1), fc.integer()) : fc.nat(testSize).chain( length => fc.tuple(fc.array(fc.string(), 2, length + 2), fc.integer()));
 }
