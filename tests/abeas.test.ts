@@ -3,27 +3,35 @@
 import * as fc from "fast-check";
 import * as abeasFile from "../src/abeas";
 
+// default testSize, the larger it is, the longer it takes as it defines the max size of arrays and tuples 
+const testSize: number = 100;
+
+function arbRequest(mustNotEmpty: boolean = false): fc.Arbitrary<[string, number, number, number]> {
+  return mustNotEmpty ? fc.nat(testSize).chain(length => fc.tuple(fc.string(1, length + 1), fc.integer(), fc.integer(), fc.integer())) : fc.tuple(fc.string(), fc.integer(), fc.integer(), fc.integer());
+}
+
+function arbCombination(mustSingleName: boolean = false): fc.Arbitrary<[string[], number]> {
+  return mustSingleName ? fc.tuple(fc.array(fc.string(), 1, 1), fc.integer()) : fc.nat(testSize).chain( length => fc.tuple(fc.array(fc.string(), 2, length + 2), fc.integer()));
+}
+
 test("Should return an object with a name, start, duration and earning key equal to the params", () => {
   fc.assert(
     // given a string and three numbers
     fc.property(
-      fc.string(),
-      fc.integer(),
-      fc.integer(),
-      fc.integer(),
-      (customerName, start, duration, earning) => {
+      arbRequest(),
+      rawRequest => {
         // when I convert them to a request object
         const result: abeasFile.Request = abeasFile.customerRequest(
-          customerName,
-          start,
-          duration,
-          earning
+          rawRequest[0],
+          rawRequest[1],
+          rawRequest[2],
+          rawRequest[3]
         );
         // then I expect all the relevant keys to be equal to params
-        expect(result.name).toBe(customerName);
-        expect(result.start).toBe(start);
-        expect(result.duration).toBe(duration);
-        expect(result.earning).toBe(earning);
+        expect(result.name).toBe(rawRequest[0]);
+        expect(result.start).toBe(rawRequest[1]);
+        expect(result.duration).toBe(rawRequest[2]);
+        expect(result.earning).toBe(rawRequest[3]);
       }
     )
   );
@@ -33,39 +41,35 @@ test("Should return an object with names, totalEarning key equal to the params",
   fc.assert(
     // given an array of strings and a number
     fc.property(
-      fc.array(fc.string()),
-      fc.integer(),
-      (customerNames, customerEarning) => {
+      arbCombination(),
+      servingCombinations => {
         // when I convert them to a combination object
         const result: abeasFile.Combination = abeasFile.serviceCombination(
-          customerNames,
-          customerEarning
+          servingCombinations[0],
+          servingCombinations[1]
         );
         // then I expect all the relevant keys to be equal to params
-        expect(result.names).toStrictEqual(customerNames);
-        expect(result.totalEarning).toBe(customerEarning);
+        expect(result.names).toStrictEqual(servingCombinations[0]);
+        expect(result.totalEarning).toBe(servingCombinations[1]);
       }
     )
   );
 });
 
 test("Should return all the requests that can be run after the specified value of a request list", () => {
-  const testSize = 100;
   fc.assert(
     fc.property(
-      fc.array(fc.string(), testSize, testSize),
-      fc.array(fc.integer(), testSize * 3, testSize * 3),
+      fc.array(arbRequest(), testSize, testSize),
       fc.nat(testSize - 1),
-      (customerNames, numberDetails, valueIndex) => {
+      (incomingRequests, valueIndex) => {
         // given an array of requests
-        const requestList: readonly abeasFile.Request[] = customerNames.map(
-          function(name) {
-            const index = customerNames.indexOf(name);
+        const requestList: readonly abeasFile.Request[] = incomingRequests.map(
+          function(request) {
             return abeasFile.customerRequest(
-              name,
-              numberDetails[3 * index],
-              numberDetails[3 * index + 1],
-              numberDetails[3 * index + 2]
+              request[0],
+              request[1],
+              request[2],
+              request[3]
             );
           }
         );
@@ -92,22 +96,18 @@ test("Should return all the requests that can be run after the specified value o
 });
 
 test("Should return false as the provided list is not empty", () => {
-  const testSizes = Array.from(Array(10).keys()).slice(1);
-  testSizes.map(function(testSize) {
     fc.assert(
       fc.property(
-        fc.array(fc.string(), testSize, testSize),
-        fc.array(fc.integer(), testSize * 3, testSize * 3),
-        (customerNames, numberDetails) => {
+        fc.array(arbRequest(true), 1, testSize),
+        incomingRequests => {
           // given an array of requests that is not empty
-          const requestList: readonly abeasFile.Request[] = customerNames.map(
-            function(name) {
-              const index = customerNames.indexOf(name);
+          const requestList: readonly abeasFile.Request[] = incomingRequests.map(
+            function(request) {
               return abeasFile.customerRequest(
-                name,
-                numberDetails[3 * index],
-                numberDetails[3 * index + 1],
-                numberDetails[3 * index + 2]
+                request[0],
+                request[1],
+                request[2],
+                request[3]
               );
             }
           );
@@ -118,22 +118,27 @@ test("Should return false as the provided list is not empty", () => {
         }
       )
     );
-  });
 });
 
-test("Should return true as the provided list is empty", () => {
+test("Should return true as the provided list (any) is empty", () => {
   // given an empty array
   const emptyList: ArrayLike<unknown> = [];
   // when I calculate if the array is empty
   const resultEmpty: boolean = abeasFile.emptyEntries(emptyList);
   // then I expect it to be true
   expect(resultEmpty).toBe(true);
+});
+
+test("Should return true as the provided list (2D String) is empty", () => {
   // given an empty strings array of arrays
   const emptyString: string[][] = [];
   // when I calculate if it is empty
   const stringEmpty: boolean = abeasFile.emptyEntries(emptyString);
   // then I expect it to be true
   expect(stringEmpty).toBe(true);
+});
+
+test("Should return true as the provided list (request) is empty", () => {
   // given an empty requests array
   const emptyRequests: abeasFile.Request[] = [];
   // when I calculate if the array is empty
@@ -145,24 +150,23 @@ test("Should return true as the provided list is empty", () => {
 test("Should return a combination (current value) from a request", () => {
   fc.assert(
     fc.property(
-      fc.string(),
-      fc.array(fc.integer(), 3, 3),
-      (customerName, numberDetails) => {
+      arbRequest(),
+      incomingRequest => {
         // given a customer request
         const passedRequest: abeasFile.Request = abeasFile.customerRequest(
-          customerName,
-          numberDetails[0],
-          numberDetails[1],
-          numberDetails[2]
+          incomingRequest[0],
+          incomingRequest[1],
+          incomingRequest[2],
+          incomingRequest[3]
         );
         // when I get the cur value
         const curCombination: abeasFile.Combination = abeasFile.curValue(
           passedRequest
         );
         // then I expect the name to be same as customerName
-        expect(curCombination.names).toStrictEqual([customerName]);
+        expect(curCombination.names).toStrictEqual([incomingRequest[0]]);
         // and then I expect the value to be same as the last member of numbers array
-        expect(curCombination.totalEarning).toBe(numberDetails[2]);
+        expect(curCombination.totalEarning).toBe(incomingRequest[3]);
       }
     )
   );
@@ -171,15 +175,14 @@ test("Should return a combination (current value) from a request", () => {
 test("Should return a combination unchanged if there is only one name, added with earning if it has multiple names in its array", () => {
   fc.assert(
     fc.property(
-      fc.array(fc.string(), 2, 10),
-      fc.string(),
+      arbCombination(),
+      arbCombination(true),
       fc.integer(),
-      fc.integer(),
-      (names, singleName, earning, currentEarning) => {
+      (anyNameCombination, singleNameCombination, currentEarning) => {
         // given a combination of names  and total earning
         const passedCombination: abeasFile.Combination = abeasFile.serviceCombination(
-          names,
-          earning
+          anyNameCombination[0],
+          anyNameCombination[1]
         );
         // when I get the current combination
         const curCombination: abeasFile.Combination = abeasFile.probableCombinations(
@@ -189,11 +192,11 @@ test("Should return a combination unchanged if there is only one name, added wit
         // then I expect the names to be same as passed
         expect(curCombination.names).toStrictEqual(passedCombination.names);
         // and then I expect the earning to be added with passed earning
-        expect(curCombination.totalEarning).toBe(earning + currentEarning);
+        expect(curCombination.totalEarning).toBe(anyNameCombination[1] + currentEarning);
         // given a combination of one single name and total earning
         const singleCombination: abeasFile.Combination = abeasFile.serviceCombination(
-          [singleName],
-          earning
+          singleNameCombination[0],
+          singleNameCombination[1]
         );
         // when I get the current combination
         const curSingleCombination: abeasFile.Combination = abeasFile.probableCombinations(
@@ -201,32 +204,35 @@ test("Should return a combination unchanged if there is only one name, added wit
           currentEarning
         );
         // then I expect the name to be same as passed
-        expect(curSingleCombination.names).toStrictEqual([singleName]);
+        expect(curSingleCombination.names).toStrictEqual(singleNameCombination[0]);
         // then I expect the earning to remain the same
-        expect(curSingleCombination.totalEarning).toBe(earning);
+        expect(curSingleCombination.totalEarning).toBe(singleNameCombination[1]);
       }
     )
   );
 });
 
 test("Should return the top combination whose earning should be greater than or equal to any other earning on the list", () => {
-  const testSizes = Array.from(Array(10).keys()).slice(1);
-  testSizes.map(function(testSize) {
+  // given an array of numbers 1 to 10 to loop through
+  const arrayLoops = Array.from(Array(testSize).keys()).slice(1);
+  arrayLoops.map(function(arrayLoop) {
     fc.assert(
       fc.property(
-        fc.array(fc.array(fc.string()), testSize, testSize),
-        fc.array(fc.integer(), testSize, testSize),
-        fc.nat(testSize - 1),
-        (names, earnings, arbIndex) => {
-          const passedCombination: readonly abeasFile.Combination[] = names.map(
-            function(nameList) {
-              const index = names.indexOf(nameList);
-              return abeasFile.serviceCombination(nameList, earnings[index]);
+        // given an array of arbitary combinations
+        fc.array(arbCombination(), arrayLoop, arrayLoop),
+        // given a valid index of that combination
+        fc.nat(arrayLoop - 1),
+        (incomingCombinations, arbIndex) => {
+          const passedCombination: readonly abeasFile.Combination[] = incomingCombinations.map(
+            function(incomingCombination) {
+              return abeasFile.serviceCombination(incomingCombination[0], incomingCombination[1]);
             }
           );
+          // when I calculate the top combination
           const topCombination: abeasFile.Combination = abeasFile.highestEarningCombination(
             passedCombination
           );
+          // then the total earning should be greater than or equal to any individual earning
           expect(topCombination.totalEarning).toBeGreaterThanOrEqual(
             passedCombination[arbIndex].totalEarning
           );
@@ -237,82 +243,68 @@ test("Should return the top combination whose earning should be greater than or 
 });
 
 test("Should throw is an error saing it expected four column, but got something else or data is not a number in column 2-4", () => {
-  const testSizes = Array.from(Array(10).keys()).slice(1);
-  testSizes.map(function(testSize) {
-    fc.assert(
+  fc.assert(
+    fc.property(
       // given an array with less than four columns
-      fc.property(
-        fc.array(fc.array(fc.string(), 1, 3)),
-        fc.array(fc.array(fc.string(), 5, 100)),
-        fc.nat(testSize - 1),
-        fc.array(fc.string(), testSize, testSize),
-        fc.array(fc.integer(), testSize * 3, testSize * 3),
-        fc.array(fc.string(), testSize * 3, testSize * 3),
-        (
-          lessStrings,
-          moreStrings,
-          arbIndex,
-          customerNames,
-          numberDetails,
-          stringDetails
-        ) => {
-          // creates a list of valid input in a 2D string array
-          const fourStrings: readonly (readonly string[])[] = customerNames.map(
-            function(name) {
-              const index = customerNames.indexOf(name);
-              return [
-                name,
-                String(numberDetails[3 * index]),
-                String(numberDetails[3 * index + 1]),
-                String(numberDetails[3 * index + 2])
-              ];
-            }
-          );
+      fc.array(fc.array(fc.string(), 1, 3)),
+      // given an array with greater than four columns
+      fc.array(fc.array(fc.string(), 5, testSize)),
+      // given an index of that array
+      fc.nat(testSize - 1),
+      // given an ideal processable array of four columns
+      fc.array(arbRequest()),
+      // given an array with four stringed columns
+      fc.array(fc.array(fc.string(), 4, 4), 1, testSize),
+      (
+        lessStrings,
+        moreStrings,
+        arbIndex,
+        fourColumns,
+        stringFourColumns
+      ) => {
+        // when I create a list of valid input in a 2D string array
+        const fourStrings: readonly (readonly string[])[] = fourColumns.map(
+          function(fourColumn) {
+            return [
+              fourColumn[0],
+              String(fourColumn[1]),
+              String(fourColumn[2]),
+              String(fourColumn[3])
+            ];
+          }
+        );
 
-          const notNumbers: readonly (readonly string[])[] = customerNames.map(
-            function(name) {
-              const index = customerNames.indexOf(name);
-              return [
-                name,
-                stringDetails[3 * index + 1],
-                stringDetails[3 * index + 2],
-                stringDetails[3 * index + 3]
-              ];
-            }
-          );
+        // when data is being cleaned with second third and fourth columns not having numeric strings
+        // it should throw an error saying it is not a number
+        expect(() => abeasFile.cleanData(stringFourColumns)).toThrowError(
+          "is not a number"
+        );
 
-          // when data is being cleaned with second third and fourth columns not having numeric strings
-          // it should throw an error saying it is not a number
-          expect(() => abeasFile.cleanData(notNumbers)).toThrowError(
-            "is not a number"
-          );
+        // when data is being cleaned with columns less than three
+        // it should throw an error with a error message pointing out that it expected four columns but got n
+        expect(() => abeasFile.cleanData(lessStrings)).toThrowError(
+          "Expected four columns, got"
+        );
 
-          // when data is being cleaned with columns less than three
-          // it should throw an error with a error message pointing out that it expected four columns but got n
-          expect(() => abeasFile.cleanData(lessStrings)).toThrowError(
-            "Expected four columns, got"
-          );
+        // when data is being cleaned with one column less than four in an arbitary position
+        const randomThree = [
+          ...fourStrings.slice(0, arbIndex),
+          ["injection1", "injection2", "injection3"],
+          ...fourStrings.slice(arbIndex)
+        ];
+        // it should throw an error with a error message pointing out it expected four columns but got n
+        expect(() => abeasFile.cleanData(randomThree)).toThrowError(
+          "Expected four columns"
+        );
 
-          // when data is being cleaned with one column less than four in an arbitary position
-          const randomThree = [
-            ...fourStrings.slice(0, arbIndex),
-            [customerNames[0], stringDetails[0], customerNames[0]],
-            ...fourStrings.slice(arbIndex)
-          ];
-          // it should throw an error with a error message pointing out it expected four columns but got n
-          expect(() => abeasFile.cleanData(randomThree)).toThrowError(
-            "Expected four columns"
-          );
-
-          // when data is being cleaned with columns more than four
-          // it should throw an error with a error message pointing out that it expected four columns but got n
-          expect(() => abeasFile.cleanData(moreStrings)).toThrowError(
-            "Expected four columns, got"
-          );
-        }
-      )
-    );
-  });
+        // when data is being cleaned with columns more than four
+        // it should throw an error with a error message pointing out that it expected four columns but got n
+        expect(() => abeasFile.cleanData(moreStrings)).toThrowError(
+          "Expected four columns, got"
+        );
+      }
+    )
+  );
 });
 
 test("Should return the expected (highest earning serving sequence) set of combinations as the final product provided a list of requests as input", () => {

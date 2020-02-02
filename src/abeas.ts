@@ -131,7 +131,7 @@ export function probableCombinations(
   passedSequence: Combination,
   curEarning: number
 ): Combination {
-  return passedSequence.names.length === 1
+  return passedSequence.names.length === 2
     ? serviceCombination(passedSequence.names, passedSequence.totalEarning)
     : serviceCombination(
         passedSequence.names,
