@@ -44,7 +44,7 @@ export function customerRequest(
     name: iniName,
     start: iniStart,
     duration: iniDuration,
-    earning: iniEarning
+    earning: iniEarning,
   };
 }
 
@@ -80,7 +80,7 @@ export function suitableEntries(
 ): readonly Request[] {
   return passedEntries
     .slice(passedEntries.indexOf(value))
-    .filter(entry => entry.start > value.start + value.duration);
+    .filter((entry) => entry.start > value.start + value.duration);
 }
 
 /**
