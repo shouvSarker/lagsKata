@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2021-01-19T01:20:46.107Z" agent="5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36" etag="hHKN4nAiYxfN2pzjy43p" version="14.2.3" type="github">
+<mxfile host="app.diagrams.net" modified="2021-01-19T02:27:35.385Z" agent="5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36" etag="ev7i5BD8ATOg2N9Yqd6j" version="14.2.3" type="github">
   <diagram id="GDWhH05SAkbe6hDM_JOs" name="Page-1">
-    <mxGraphModel dx="2819" dy="1134" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="2819" dy="2303" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -194,11 +194,26 @@
         <mxCell id="mayLfPww5GSYkWoIKKCy-78" value="Data usage/manipulation&lt;br&gt;through REST API" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
           <mxGeometry x="-120" y="110" width="40" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="mayLfPww5GSYkWoIKKCy-80" value="Querying from database" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;" vertex="1" parent="1">
-          <mxGeometry x="530" y="50" width="140" height="20" as="geometry" />
+        <mxCell id="mayLfPww5GSYkWoIKKCy-80" value="Database query" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;" vertex="1" parent="1">
+          <mxGeometry x="550" y="50" width="100" height="20" as="geometry" />
         </mxCell>
         <mxCell id="mayLfPww5GSYkWoIKKCy-81" value="Rendering macros &lt;br&gt;on the page" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;" vertex="1" parent="1">
           <mxGeometry x="215" y="405" width="110" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="mayLfPww5GSYkWoIKKCy-82" value="Content to render macro" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="250" y="170" width="40" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="mayLfPww5GSYkWoIKKCy-83" value="Content to render blueprint" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="110" y="170" width="40" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="mayLfPww5GSYkWoIKKCy-84" value="Rendering blueprints on the page" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="-10" y="380" width="40" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="mayLfPww5GSYkWoIKKCy-85" value="Content to service for processing" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="360" y="40" width="40" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="mayLfPww5GSYkWoIKKCy-86" value="Content to be exposed through API endpoints" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="150" y="30" width="40" height="20" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
